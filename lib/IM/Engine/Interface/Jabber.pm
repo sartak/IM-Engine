@@ -15,6 +15,12 @@ has xmpp => (
     lazy_build => 1,
 );
 
+has accept_subscriptions => (
+    is      => 'ro',
+    isa     => 'Bool',
+    default => 1,
+);
+
 sub _build_xmpp {
     my $self = shift;
     my $xmpp = AnyEvent::XMPP::Client->new;
@@ -39,6 +45,12 @@ sub _build_xmpp {
             );
 
             $weakself->received_message($incoming);
+        },
+        contact_request_subscribe => sub {
+            my (undef, undef, undef, $contact) = @_;
+
+            return unless $self->accept_subscriptions;
+            $contact->send_subscribed;
         },
     );
     weaken($weakself);
