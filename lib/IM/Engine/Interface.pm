@@ -1,7 +1,8 @@
 package IM::Engine::Interface;
 use Moose;
 
-use constant user_class => 'IM::Engine::User';
+use constant incoming_class => 'IM::Engine::Incoming';
+use constant user_class     => 'IM::Engine::User';
 
 has incoming_callback => (
     is        => 'ro',

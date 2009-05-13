@@ -28,7 +28,7 @@ sub _build_xmpp {
     $xmpp->reg_cb(message => sub {
         my (undef, $msg) = @_;
 
-        my $incoming = IM::Engine::Incoming->new(
+        my $incoming = $weakself->incoming_class->new(
             sender  => $weakself->user_class->new(name => $msg->from),
             message => $msg->body,
         );

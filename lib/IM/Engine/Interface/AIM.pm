@@ -23,7 +23,7 @@ sub _build_oscar {
     $oscar->set_callback(sub {
         my (undef, $sender, $message, $is_away) = @_;
 
-        my $incoming = IM::Engine::Incoming->new(
+        my $incoming = $weakself->incoming_class->new(
             sender  => $weakself->user_class->new(name => $sender),
             message => $message,
         );
