@@ -16,17 +16,21 @@ sub reply {
     my $self = shift;
     my %args = @_;
 
-    my $outgoing = $self->_reply_class->new(%args);
-    $self->_contextualize_reply($outgoing);
+    my $outgoing = $self->_reply_class->new(
+        $self->_contextual_reply_arguments,
+        %args,
+    );
 
     return $outgoing;
 }
 
-sub _contextualize_reply {
-    my $self     = shift;
-    my $outgoing = shift;
+sub _contextual_reply_arguments {
+    my $self = shift;
 
-    $outgoing->_set_recipient($self->sender);
+    return (
+        recipient => $self->sender,
+        inner,
+    );
 }
 
 __PACKAGE__->meta->make_immutable;

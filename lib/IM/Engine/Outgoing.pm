@@ -5,7 +5,6 @@ extends 'IM::Engine::Message';
 
 has recipient => (
     is       => 'ro',
-    writer   => '_set_recipient',
     isa      => 'IM::Engine::User',
     required => 1,
 );

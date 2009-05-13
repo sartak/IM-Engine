@@ -12,11 +12,13 @@ has xmpp_message => (
     required => 1,
 );
 
-after _contextualize_reply => sub {
-    my $self     = shift;
-    my $outgoing = shift;
+augment _contextual_reply_arguments => sub {
+    my $self = shift;
 
-    $outgoing->_set_xmpp_message($self->xmpp_message);
+    return (
+        xmpp_message => $self->xmpp_message,
+        inner,
+    );
 };
 
 __PACKAGE__->meta->make_immutable;
