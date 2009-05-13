@@ -16,7 +16,7 @@ augment _contextual_reply_arguments => sub {
     my $self = shift;
 
     return (
-        xmpp_message => $self->xmpp_message,
+        xmpp_message => $self->xmpp_message->make_reply,
         inner,
     );
 };
