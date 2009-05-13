@@ -32,11 +32,6 @@ sub received_message {
     $self->send_message($outgoing);
 }
 
-sub send_message {
-    my $class = blessed($_[0]) || $_[0];
-    die "The send_message method must be defined by the $class class";
-}
-
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
