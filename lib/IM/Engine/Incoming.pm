@@ -3,6 +3,8 @@ use Moose;
 
 extends 'IM::Engine::Message';
 
+use constant _reply_class => 'IM::Engine::Outgoing';
+
 has sender => (
     is       => 'ro',
     isa      => 'IM::Engine::User',
@@ -13,7 +15,7 @@ sub reply {
     my $self = shift;
     my %args = @_;
 
-    my $outgoing = IM::Engine::Outgoing->new(%args);
+    my $outgoing = $self->_reply_class->new(%args);
     $self->_contextualize_reply($outgoing);
 
     return $outgoing;
