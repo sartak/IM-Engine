@@ -37,7 +37,7 @@ __END__
 
 =head1 NAME
 
-IM::Engine - An HTTP::Engine for instant messaging
+IM::Engine - The HTTP::Engine of instant messaging
 
 =head1 SYNOPSIS
 
