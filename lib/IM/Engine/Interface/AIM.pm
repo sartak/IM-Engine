@@ -35,6 +35,13 @@ sub _build_oscar {
     return $oscar;
 }
 
+sub send_message {
+    my $self     = shift;
+    my $outgoing = shift;
+
+    $self->oscar->send_im($outgoing->user->name, $outgoing->message);
+}
+
 sub run {
     my $self = shift;
     while (1) {
