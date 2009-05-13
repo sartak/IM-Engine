@@ -35,6 +35,13 @@ sub _build_oscar {
     return $oscar;
 }
 
+sub run {
+    my $self = shift;
+    while (1) {
+        $self->oscar->do_one_loop;
+    }
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
