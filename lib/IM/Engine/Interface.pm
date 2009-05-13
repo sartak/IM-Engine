@@ -38,10 +38,6 @@ sub received_message {
     return unless blessed($outgoing)
                && $outgoing->isa('IM::Engine::Outgoing');
 
-    die "Message loop aborted"
-        if $incoming->sender->canonical_name
-        eq $outgoing->recipient->canonical_name;
-
     $self->send_message($outgoing);
 }
 
