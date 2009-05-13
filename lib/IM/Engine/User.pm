@@ -1,7 +1,7 @@
 package IM::Engine::User;
 use Moose;
 
-has username => (
+has name => (
     is       => 'ro',
     isa      => 'Str',
     required => 1,

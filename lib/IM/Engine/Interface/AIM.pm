@@ -23,7 +23,7 @@ sub _build_oscar {
         my (undef, $sender, $message, $is_away) = @_;
 
         my $incoming = IM::Engine::Incoming->new(
-            sender  => IM::Engine::User->new(username => $sender),
+            sender  => IM::Engine::User->new(name => $sender),
             message => $message,
         );
 
