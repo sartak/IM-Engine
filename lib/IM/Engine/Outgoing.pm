@@ -9,6 +9,12 @@ has recipient => (
     required => 1,
 );
 
+has incoming => (
+    is        => 'ro',
+    isa       => 'IM::Engine::Incoming',
+    predicate => 'has_incoming',
+);
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

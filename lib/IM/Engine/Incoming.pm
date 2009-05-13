@@ -28,6 +28,7 @@ sub _contextual_reply_arguments {
     my $self = shift;
 
     return (
+        incoming  => $self,
         recipient => $self->sender,
         inner,
     );
