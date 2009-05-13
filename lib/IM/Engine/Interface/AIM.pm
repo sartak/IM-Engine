@@ -1,6 +1,7 @@
 package IM::Engine::Interface::AIM;
 use Moose;
 use Scalar::Util 'weaken';
+use Net::OSCAR;
 
 extends 'IM::Engine::Interface';
 
