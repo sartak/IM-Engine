@@ -45,7 +45,7 @@ sub send_message {
     my $self     = shift;
     my $outgoing = shift;
 
-    $self->send_message(
+    $self->xmpp->send_message(
         $outgoing->message,
         $outgoing->recipient,
     );

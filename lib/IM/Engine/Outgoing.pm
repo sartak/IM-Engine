@@ -1,11 +1,12 @@
-package IM::Interface::Outgoing;
+package IM::Engine::Outgoing;
 use Moose;
 
-extends 'IM::Interface::Message';
+extends 'IM::Engine::Message';
 
 has recipient => (
     is       => 'ro',
-    isa      => 'IM::Interface::User',
+    writer   => '_set_recipient',
+    isa      => 'IM::Engine::User',
     required => 1,
 );
 

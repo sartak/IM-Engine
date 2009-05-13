@@ -1,4 +1,4 @@
-package IM::Interface::Message;
+package IM::Engine::Message;
 use Moose;
 
 has message => (
