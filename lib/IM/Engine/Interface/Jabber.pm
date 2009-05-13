@@ -55,8 +55,6 @@ sub _build_xmpp {
     );
     weaken($weakself);
 
-    $xmpp->start;
-
     return $xmpp;
 }
 
