@@ -39,12 +39,12 @@ sub _build_xmpp {
     my $weakself = $self;
     $xmpp->reg_cb(
         message => sub {
-            my (undef, $sender, $msg) = @_;
+            my (undef, undef, $msg) = @_;
 
             return if !defined($msg->body);
 
             my $incoming = $weakself->incoming_class->new(
-                sender       => $weakself->user_class->new(name => $sender->jid),
+                sender       => $weakself->user_class->new(name => $msg->from),
                 xmpp_message => $msg,
                 message      => $msg->body,
             );
