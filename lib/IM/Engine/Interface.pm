@@ -1,6 +1,12 @@
 package IM::Engine::Interface;
 use Moose;
 
+has incoming_callback => (
+    is        => 'ro',
+    isa       => 'CodeRef',
+    predicate => 'has_incoming_callback',
+);
+
 has credentials => (
     is         => 'ro',
     isa        => 'HashRef',
