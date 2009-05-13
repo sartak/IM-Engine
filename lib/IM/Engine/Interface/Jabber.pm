@@ -9,6 +9,9 @@ extends 'IM::Engine::Interface';
 use IM::Engine::Incoming::Jabber;
 use constant incoming_class => 'IM::Engine::Incoming::Jabber';
 
+use IM::Engine::User::Jabber;
+use constant user_class => 'IM::Engine::User::Jabber';
+
 has xmpp => (
     is         => 'ro',
     isa        => 'AnyEvent::XMPP::Client',
