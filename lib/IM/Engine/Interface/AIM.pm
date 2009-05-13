@@ -5,15 +5,13 @@ use Net::OSCAR;
 
 extends 'IM::Engine::Interface';
 
+use constant user_class => 'IM::Engine::User::AIM';
+
 has oscar => (
     is      => 'ro',
     isa     => 'Net::OSCAR',
     lazy    => 1,
     builder => '_build_oscar',
-);
-
-has '+user_class' => (
-    default => 'IM::Engine::User::AIM',
 );
 
 sub _build_oscar {

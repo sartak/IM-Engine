@@ -1,6 +1,8 @@
 package IM::Engine::Interface;
 use Moose;
 
+use constant user_class => 'IM::Engine::User';
+
 has incoming_callback => (
     is        => 'ro',
     isa       => 'CodeRef',
@@ -12,12 +14,6 @@ has credentials => (
     isa        => 'HashRef',
     default    => sub { {} },
     auto_deref => 1,
-);
-
-has user_class => (
-    is      => 'ro',
-    isa     => 'IM::Engine::User',
-    default => 'IM::Engine::User',
 );
 
 sub received_message {
