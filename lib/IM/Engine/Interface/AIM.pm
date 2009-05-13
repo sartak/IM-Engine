@@ -17,8 +17,6 @@ sub _build_oscar {
     my $oscar = Net::OSCAR->new;
 
     my $weakself = $self;
-    weaken($weakself);
-
     $oscar->set_callback(sub {
         my (undef, $sender, $message, $is_away) = @_;
 
@@ -29,6 +27,7 @@ sub _build_oscar {
 
         $weakself->received_message($incoming);
     });
+    weaken($weakself);
 
     $oscar->signon($self->credentials);
 
