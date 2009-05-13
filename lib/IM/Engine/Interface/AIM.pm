@@ -5,6 +5,7 @@ use Net::OSCAR;
 
 extends 'IM::Engine::Interface';
 
+use IM::Engine::User::AIM;
 use constant user_class => 'IM::Engine::User::AIM';
 
 has oscar => (

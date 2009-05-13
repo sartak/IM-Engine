@@ -3,6 +3,7 @@ use Moose;
 
 extends 'IM::Engine::Message';
 
+use IM::Engine::Outgoing;
 use constant _reply_class => 'IM::Engine::Outgoing';
 
 has sender => (

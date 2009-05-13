@@ -3,6 +3,7 @@ use Moose;
 
 extends 'IM::Engine::Incoming';
 
+use IM::Engine::Outgoing::Jabber;
 use constant _reply_class => 'IM::Engine::Outgoing::Jabber';
 
 has xmpp_message => (
