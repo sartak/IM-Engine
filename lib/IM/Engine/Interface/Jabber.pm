@@ -28,16 +28,19 @@ sub _build_xmpp {
     );
 
     my $weakself = $self;
-    $xmpp->reg_cb(message => sub {
-        my (undef, $msg) = @_;
+    $xmpp->reg_cb(
+        message => sub {
+            my (undef, $sender, $msg) = @_;
 
-        my $incoming = $weakself->incoming_class->new(
-            sender  => $weakself->user_class->new(name => $msg->from),
-            message => $msg->body,
-        );
+            my $incoming = $weakself->incoming_class->new(
+                sender       => $weakself->user_class->new(name => $sender->jid),
+                xmpp_message => $msg,
+                message      => $msg->body,
+            );
 
-        $weakself->received_message($incoming);
-    });
+            $weakself->received_message($incoming);
+        },
+    );
     weaken($weakself);
 
     $xmpp->start;
