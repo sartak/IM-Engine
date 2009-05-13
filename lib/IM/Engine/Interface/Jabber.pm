@@ -38,6 +38,8 @@ sub _build_xmpp {
         message => sub {
             my (undef, $sender, $msg) = @_;
 
+            return if !defined($msg->body);
+
             my $incoming = $weakself->incoming_class->new(
                 sender       => $weakself->user_class->new(name => $sender->jid),
                 xmpp_message => $msg,
