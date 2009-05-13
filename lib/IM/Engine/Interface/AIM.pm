@@ -25,7 +25,7 @@ sub _build_oscar {
         my (undef, $sender, $message, $is_away) = @_;
 
         my $incoming = $weakself->incoming_class->new(
-            sender  => $weakself->user_class->new(name => $sender),
+            sender  => $weakself->user_class->new(name => $sender->stringify),
             message => $message,
         );
 
