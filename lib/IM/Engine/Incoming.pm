@@ -3,7 +3,7 @@ use Moose;
 
 extends 'IM::Interface::Message';
 
-has from => (
+has sender => (
     is       => 'ro',
     isa      => 'IM::Interface::User',
     required => 1,

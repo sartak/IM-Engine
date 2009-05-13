@@ -20,9 +20,9 @@ sub _build_oscar {
     weaken($weakself);
 
     $oscar->set_callback(sub {
-        my (undef, $from, $message, $is_away) = @_;
+        my (undef, $sender, $message, $is_away) = @_;
         $weakself->received_message(
-            from    => $from,
+            sender  => $sender,
             message => $message,
         );
     });
