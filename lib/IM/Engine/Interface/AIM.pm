@@ -42,7 +42,7 @@ sub send_message {
     my $self     = shift;
     my $outgoing = shift;
 
-    $self->oscar->send_im($outgoing->user->name, $outgoing->message);
+    $self->oscar->send_im($outgoing->recipient->name, $outgoing->message);
 }
 
 sub run {

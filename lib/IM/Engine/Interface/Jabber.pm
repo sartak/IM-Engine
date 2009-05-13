@@ -57,7 +57,7 @@ sub send_message {
     else {
         $self->xmpp->send_message(
             $outgoing->message,
-            $outgoing->recipient,
+            $outgoing->recipient->name,
         );
     }
 }
