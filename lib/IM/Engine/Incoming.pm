@@ -16,6 +16,8 @@ sub reply {
     my $self = shift;
     my %args = @_;
 
+    Carp::carp("Incoming->reply constructs an Outgoing object for you; it does not automatically send it") if !defined(wantarray);
+
     my $outgoing = $self->_reply_class->new(
         $self->_contextual_reply_arguments,
         %args,
