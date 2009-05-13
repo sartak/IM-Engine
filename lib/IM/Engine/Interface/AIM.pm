@@ -20,7 +20,7 @@ sub _build_oscar {
     my $oscar = Net::OSCAR->new;
 
     my $weakself = $self;
-    $oscar->set_callback(sub {
+    $oscar->set_callback_im_in(sub {
         my (undef, $sender, $message, $is_away) = @_;
 
         my $incoming = $weakself->incoming_class->new(
