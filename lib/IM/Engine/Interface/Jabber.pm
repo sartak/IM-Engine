@@ -6,6 +6,8 @@ use AnyEvent::XMPP::Client;
 
 extends 'IM::Engine::Interface';
 
+use constant incoming_class => 'IM::Engine::Incoming::Jabber';
+
 has xmpp => (
     is         => 'ro',
     isa        => 'AnyEvent::XMPP::Client',
