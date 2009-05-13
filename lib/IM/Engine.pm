@@ -2,6 +2,8 @@ package IM::Engine;
 use Moose;
 use Moose::Util::TypeConstraints;
 
+use IM::Engine::Interface;
+
 coerce 'IM::Engine::Interface'
     => from 'HashRef'
     => via {
