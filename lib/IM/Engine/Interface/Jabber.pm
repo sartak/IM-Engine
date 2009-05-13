@@ -69,7 +69,10 @@ sub send_message {
 
     if ($outgoing->isa('IM::Engine::Outgoing::Jabber') && $outgoing->has_xmpp_message) {
         my $xmpp_message = $outgoing->xmpp_message;
+
         $xmpp_message->add_body($outgoing->message);
+        $xmpp_message->to($outgoing->recipient->name);
+
         $self->xmpp->send_message($xmpp_message);
     }
     else {
