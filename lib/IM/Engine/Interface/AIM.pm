@@ -21,10 +21,13 @@ sub _build_oscar {
 
     $oscar->set_callback(sub {
         my (undef, $sender, $message, $is_away) = @_;
-        $weakself->received_message(
-            sender  => $sender,
+
+        my $incoming = IM::Engine::Incoming->new(
+            sender  => IM::Engine::User->new(username => $sender),
             message => $message,
         );
+
+        $weakself->received_message($incoming);
     });
 
     $oscar->signon($self->credentials);
