@@ -63,7 +63,7 @@ sub send_message {
     my $outgoing = shift;
 
     if ($outgoing->isa('IM::Engine::Outgoing::Jabber') && $outgoing->has_xmpp_message) {
-        my $xmpp_message = $self->outgoing->xmpp_message;
+        my $xmpp_message = $self->xmpp_message;
         $xmpp_message->add_body($outgoing->message);
         $self->xmpp_send_message($xmpp_message);
     }
