@@ -1,5 +1,6 @@
 package IM::Engine::Interface;
 use Moose;
+use MooseX::AttributeHelpers;
 
 use IM::Engine::Incoming;
 use constant incoming_class => 'IM::Engine::Incoming';
@@ -14,10 +15,15 @@ has incoming_callback => (
 );
 
 has credentials => (
+    metaclass  => 'Collection::Hash',
     is         => 'ro',
     isa        => 'HashRef',
     default    => sub { {} },
     auto_deref => 1,
+    provides   => {
+        get    => 'credential',
+        exists => 'has_credential',
+    },
 );
 
 sub received_message {
