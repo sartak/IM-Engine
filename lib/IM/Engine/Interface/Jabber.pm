@@ -1,6 +1,7 @@
 package IM::Engine::Interface::Jabber;
 use Moose;
 use Scalar::Util 'weaken';
+use AnyEvent;
 use AnyEvent::XMPP::Client;
 
 extends 'IM::Engine::Interface';
@@ -49,6 +50,14 @@ sub send_message {
         $outgoing->message,
         $outgoing->recipient,
     );
+}
+
+sub run {
+   my $self = shift;
+
+   my $j = AnyEvent->condvar;
+   $self->xmpp->start;
+   $j->wait;
 }
 
 __PACKAGE__->meta->make_immutable;
