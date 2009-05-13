@@ -1,0 +1,28 @@
+More interfaces:
+    REPL
+    DJabberd
+    IRC
+    Test?
+
+Figure out a policy for capabilities such as:
+    HTML
+    Buddy list
+    User profile
+    Avatar
+
+Make sure that we encode messages properly for all interfaces
+
+Warning and error callbacks
+
+Run requests inside of an eval because killing the bot is bad
+
+Best practices for using IM::Engine to *just* send a set of messages, perhaps
+staggered over time (use case: an appointment reminder bot)
+
+Don't require the runloop, especially if it's not required (such as for both
+AIM and Jabber)
+
+Plugins for things like aliases?
+
+Jifty::Plugin::IM
+
