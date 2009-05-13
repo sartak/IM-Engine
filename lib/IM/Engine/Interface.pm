@@ -14,6 +14,12 @@ has credentials => (
     auto_deref => 1,
 );
 
+has user_class => (
+    is      => 'ro',
+    isa     => 'IM::Engine::User',
+    default => 'IM::Engine::User',
+);
+
 sub received_message {
     my $self     = shift;
     my $incoming = shift;

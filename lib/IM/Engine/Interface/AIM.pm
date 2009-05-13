@@ -11,6 +11,10 @@ has oscar => (
     builder => '_build_oscar',
 );
 
+has '+user_class' => (
+    default => 'IM::Engine::User::AIM',
+);
+
 sub _build_oscar {
     my $self = shift;
 
@@ -21,7 +25,7 @@ sub _build_oscar {
         my (undef, $sender, $message, $is_away) = @_;
 
         my $incoming = IM::Engine::Incoming->new(
-            sender  => IM::Engine::User->new(name => $sender),
+            sender  => $weakself->user_class->new(name => $sender),
             message => $message,
         );
 
