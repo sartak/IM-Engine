@@ -4,6 +4,8 @@ use Moose::Util::TypeConstraints;
 
 use IM::Engine::Interface;
 
+our $VERSION = '0.01';
+
 coerce 'IM::Engine::Interface'
     => from 'HashRef'
     => via {
