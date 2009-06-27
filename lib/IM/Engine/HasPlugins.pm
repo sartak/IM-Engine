@@ -17,7 +17,10 @@ requires 'engine';
 #   Bar => { baz => 1, quux => 4 },
 # ],
 
-coerce 'ArrayRef[IM::Engine::Plugin]'
+subtype 'IM::Engine::Plugins'
+     => as 'ArrayRef[IM::Engine::Plugin]';
+
+coerce 'IM::Engine::Plugins'
     => from 'ArrayRef[Str|HashRef]'
     => via {
         my @args = @$_;
@@ -32,7 +35,7 @@ coerce 'ArrayRef[IM::Engine::Plugin]'
 
 has _plugins => (
     metaclass => 'Collection::List',
-    isa       => 'ArrayRef[IM::Engine::Plugin]',
+    isa       => 'IM::Engine::Plugins',
     init_arg  => 'plugins',
     provides  => {
         elements => 'plugins',
