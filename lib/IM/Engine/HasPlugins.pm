@@ -3,7 +3,6 @@ use Moose::Role;
 
 has _plugins => (
     metaclass => 'Collection::List',
-    is        => 'ro',
     isa       => 'ArrayRef',
     init_arg  => 'plugins',
     provides  => {
