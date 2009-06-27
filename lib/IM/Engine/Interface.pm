@@ -32,7 +32,13 @@ sub received_message {
 
     return unless $self->has_incoming_callback;
 
-    my $outgoing = $self->incoming_callback->($incoming);
+    my $outgoing = eval { $self->incoming_callback->($incoming) };
+    if ($@) {
+        warn $@;
+        $outgoing = $incoming->reply(
+            message => "An error occurred. We apologize for the inconvenience.",
+        );
+    }
 
     # Should we warn if $outgoing is true but not an Outgoing?
     return unless blessed($outgoing)
