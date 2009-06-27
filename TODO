@@ -1,5 +1,4 @@
 More interfaces:
-    REPL
     DJabberd
     Twitter
     Test? - might not be necessary, we just deal with Request and Responses
