@@ -3,6 +3,8 @@ use Moose::Role;
 
 use IM::Engine::Plugin;
 
+requires 'engine';
+
 # Instead of...
 # plugins => [
 #   IM::Engine::Plugin::Foo->new,
@@ -36,6 +38,15 @@ has _plugins => (
         grep     => 'find_plugins',
     },
 );
+
+# XXX: This sucks! plugins don't have access to engine until after they are
+# constructed.
+sub BUILD {
+    my $self = shift;
+    for my $plugin ($self->plugins) {
+        $plugin->_set_engine($self->engine);
+    }
+}
 
 sub plugins_with {
     my $self = shift;
