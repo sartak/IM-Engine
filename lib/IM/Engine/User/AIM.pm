@@ -5,7 +5,9 @@ extends 'IM::Engine::User';
 
 sub canonical_name {
     my $self = shift;
-    return lc $self->name;
+    my $name = lc $self->name;
+    $name =~ s/\s+//g;
+    return $name;
 }
 
 __PACKAGE__->meta->make_immutable;
