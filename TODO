@@ -39,6 +39,9 @@ Middleware
     Devel mode
     Statistics
     Confirmation
+    Auto-registration
+    Admin interface
+    Loader (add and remove middleware)
 
 Jifty::Plugin::IM
 
