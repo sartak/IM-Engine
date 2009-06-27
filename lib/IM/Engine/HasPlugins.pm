@@ -1,5 +1,6 @@
 package IM::Engine::HasPlugins;
 use Moose::Role;
+use Moose::Util::TypeConstraints;
 
 use IM::Engine::Plugin;
 
