@@ -1,13 +1,12 @@
 More interfaces:
     REPL
     DJabberd
-    IRC
     Twitter
     Test? - might not be necessary, we just deal with Request and Responses
             ourselves
 
 Make sure that we encode messages properly for all interfaces
-    Jabber is fine
+    Jabber and IRC are fine
     AIM is not, does not send back あ correctly. Encode::Guess says UTF-16BE
 
 Warning and error callbacks
