@@ -7,6 +7,8 @@ More interfaces:
             ourselves
 
 Make sure that we encode messages properly for all interfaces
+    Jabber is fine
+    AIM is not, does not send back あ correctly. Encode::Guess says UTF-16BE
 
 Warning and error callbacks
     Wish we had conditions and restarts :|
