@@ -8,6 +8,8 @@ use constant incoming_class => 'IM::Engine::Incoming';
 use IM::Engine::User;
 use constant user_class => 'IM::Engine::User';
 
+with 'IM::Engine::HasEngine';
+
 has incoming_callback => (
     is        => 'ro',
     isa       => 'CodeRef',

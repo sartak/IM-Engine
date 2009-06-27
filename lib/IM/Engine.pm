@@ -31,6 +31,13 @@ has interface => (
     handles  => ['run'],
 );
 
+# XXX: This sucks! interface doesn't have access to engine until after it is
+# constructed.
+sub BUILD {
+    my $self = shift;
+    $self->interface->_set_engine($self);
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 no Moose::Util::TypeConstraints;
