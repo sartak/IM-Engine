@@ -3,6 +3,30 @@ use Moose::Role;
 
 use IM::Engine::Plugin;
 
+# Instead of...
+# plugins => [
+#   IM::Engine::Plugin::Foo->new,
+#   IM::Engine::Plugin::Bar->new(baz => 1, quux => 4),
+# ],
+# ... allow ...
+# plugins => [
+#   Foo => {},
+#   Bar => { baz => 1, quux => 4 },
+# ],
+
+coerce 'ArrayRef[IM::Engine::Plugin]'
+    => from 'ArrayRef[Str|HashRef]'
+    => via {
+        my @args = @$_;
+        my @plugins;
+        while (my ($class, $args) = splice @args, 0, 2) {
+            $class = "IM::Engine::Plugin::$class"
+                unless $class =~ s/^\+//;
+            push @plugins, $class->new($args);
+        }
+        return \@plugins;
+    };
+
 has _plugins => (
     metaclass => 'Collection::List',
     isa       => 'ArrayRef[IM::Engine::Plugin]',
