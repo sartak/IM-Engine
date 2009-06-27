@@ -26,6 +26,9 @@ coerce 'IM::Engine::Plugins'
         while (my ($class, $args) = splice @args, 0, 2) {
             $class = "IM::Engine::Plugin::$class"
                 unless $class =~ s/^\+//;
+
+            Class::MOP::load_class($class);
+
             push @plugins, $class->new($args);
         }
         return \@plugins;
