@@ -2,17 +2,14 @@ More interfaces:
     REPL
     DJabberd
     IRC
-    Test?
-
-Figure out a policy for capabilities such as:
-    HTML
-    Buddy list
-    User profile
-    Avatar
+    Twitter
+    Test? - might not be necessary, we just deal with Request and Responses
+            ourselves
 
 Make sure that we encode messages properly for all interfaces
 
 Warning and error callbacks
+    Wish we had conditions and restarts :|
 
 Run requests inside of an eval because killing the bot is bad
 
@@ -22,7 +19,26 @@ staggered over time (use case: an appointment reminder bot)
 Don't require the runloop, especially if it's not required (such as for both
 AIM and Jabber)
 
-Plugins for things like aliases?
+Middleware
+    Path-Dispatcher
+    Aliases
+    Multiple commands
+    Authentication
+    Flavor (hi, bye, thanks)
+    HTML
+    Buddy list
+    User profile
+    Avatar
+    Paging or search
+    Context
+    Feedback
+    Wizards (like Hiveminder task review)
+    Help
+    Invite
+    Modal commands
+    Devel mode
+    Statistics
+    Confirmation
 
 Jifty::Plugin::IM
 
