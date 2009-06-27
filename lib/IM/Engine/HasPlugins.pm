@@ -35,6 +35,7 @@ has _plugins => (
     metaclass => 'Collection::List',
     isa       => 'IM::Engine::Plugins',
     init_arg  => 'plugins',
+    coerce    => 1,
     provides  => {
         elements => 'plugins',
         grep     => 'find_plugins',
