@@ -1,0 +1,13 @@
+package IM::Engine::HasEngine;
+use Moose::Role;
+
+has engine => (
+    is       => 'ro',
+    writer   => '_set_engine',
+    isa      => 'IM::Engine',
+    weak_ref => 1,
+    handles  => 'IM::Engine::HasPlugins',
+);
+
+1;
+
