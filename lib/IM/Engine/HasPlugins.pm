@@ -1,9 +1,11 @@
 package IM::Engine::HasPlugins;
 use Moose::Role;
 
+use IM::Engine::Plugin;
+
 has _plugins => (
     metaclass => 'Collection::List',
-    isa       => 'ArrayRef',
+    isa       => 'ArrayRef[IM::Engine::Plugin]',
     init_arg  => 'plugins',
     provides  => {
         elements => 'plugins',
