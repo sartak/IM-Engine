@@ -4,8 +4,6 @@ use Moose::Util::TypeConstraints;
 
 use IM::Engine::Plugin;
 
-requires 'engine';
-
 # Instead of...
 # plugins => [
 #   IM::Engine::Plugin::Foo->new,
