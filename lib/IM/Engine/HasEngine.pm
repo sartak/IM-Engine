@@ -1,6 +1,8 @@
 package IM::Engine::HasEngine;
 use Moose::Role;
 
+use IM::Engine;
+
 has engine => (
     is       => 'ro',
     writer   => '_set_engine',
