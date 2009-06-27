@@ -6,6 +6,8 @@ use IM::Engine::Interface;
 
 our $VERSION = '0.01';
 
+with 'IM::Engine::HasPlugins';
+
 coerce 'IM::Engine::Interface'
     => from 'HashRef'
     => via {
