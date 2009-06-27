@@ -21,7 +21,7 @@ sub plugins_with {
     return $self->find_plugins(sub { $_->does($role) });
 }
 
-sub baton_plugins {
+sub plugin_relay {
     my $self = shift;
     my %args = @_;
 
