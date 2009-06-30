@@ -4,24 +4,13 @@ use Moose::Util::TypeConstraints;
 
 use IM::Engine::Plugin;
 
-# Instead of...
-# plugins => [
-#   IM::Engine::Plugin::Foo->new,
-#   IM::Engine::Plugin::Bar->new(baz => 1, quux => 4),
-# ],
-# ... allow ...
-# plugins => [
-#   Foo => {},
-#   Bar => { baz => 1, quux => 4 },
-# ],
+sub BUILD { } # provide an empty BUILD if the class lacks one
+after BUILD => sub {
+    my $self = shift;
+    my $args = shift;
 
-subtype 'IM::Engine::Plugins'
-     => as 'ArrayRef[IM::Engine::Plugin]';
-
-coerce 'IM::Engine::Plugins'
-    => from 'ArrayRef[Str|HashRef]'
-    => via {
-        my @args = @$_;
+    if (my $plugins = delete $args->{plugins}) {
+        my @args = @$plugins;
         my @plugins;
         while (my ($class, $args) = splice @args, 0, 2) {
             $class = "IM::Engine::Plugin::$class"
@@ -29,30 +18,25 @@ coerce 'IM::Engine::Plugins'
 
             Class::MOP::load_class($class);
 
-            push @plugins, $class->new($args);
+            push @plugins, $class->new(%$args, engine => $self->engine);
         }
         return \@plugins;
-    };
+    }
+};
 
 has _plugins => (
     metaclass => 'Collection::List',
-    isa       => 'IM::Engine::Plugins',
-    init_arg  => 'plugins',
-    coerce    => 1,
+    isa       => 'ArrayRef[IM::Engine::Plugin]',
+    default   => sub { [] },
     provides  => {
         elements => 'plugins',
         grep     => 'find_plugins',
     },
-);
 
-# XXX: This sucks! plugins don't have access to engine until after they are
-# constructed.
-sub BUILD {
-    my $self = shift;
-    for my $plugin ($self->plugins) {
-        $plugin->_set_engine($self->engine);
-    }
-}
+    # Required for passing in engine
+    writer    => '_set_plugins',
+    init_arg  => undef,
+);
 
 sub plugins_with {
     my $self = shift;
