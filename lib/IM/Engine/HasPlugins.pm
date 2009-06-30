@@ -80,5 +80,19 @@ sub plugin_default {
     return;
 }
 
+sub each_plugin {
+    my $self = shift;
+    my %args = @_;
+
+    my $role   = $args{role};
+    my $method = $args{method};
+
+    for my $plugin ($self->plugins_with($role)) {
+        $plugin->$method(\%args);
+    }
+
+    return;
+}
+
 1;
 
