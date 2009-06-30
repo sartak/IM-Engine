@@ -8,34 +8,38 @@ our $VERSION = '0.01';
 
 with 'IM::Engine::HasPlugins';
 
-coerce 'IM::Engine::Interface'
-    => from 'HashRef'
-    => via {
-        my $protocol = delete $_->{protocol}
-            or die "Your IM::Engine::Interface definition must include the 'protocol' key.";
-
-        if ($protocol !~ s{^\+}{}) {
-            $protocol = join '::', 'IM', 'Engine', 'Interface', $protocol;
-        }
-
-        Class::MOP::load_class($protocol);
-
-        return $protocol->new($_);
-    };
-
 has interface => (
     is       => 'ro',
     isa      => 'IM::Engine::Interface',
-    required => 1,
-    coerce   => 1,
     handles  => ['run'],
+
+    # Required for passing in $self as engine
+    init_arg => undef,
+    writer   => '_set_interface',
 );
 
-# XXX: This sucks! interface doesn't have access to engine until after it is
-# constructed.
 sub BUILD {
     my $self = shift;
-    $self->interface->_set_engine($self);
+    my $args = shift;
+
+    my $interface = delete $args->{interface}
+        or confess "You must provide 'interface' to " . blessed($self) . "->new";
+
+    my $protocol = delete $interface->{protocol}
+        or confess "Your IM::Engine::Interface definition must include the 'protocol' key.";
+
+    if ($protocol !~ s{^\+}{}) {
+        $protocol = join '::', 'IM', 'Engine', 'Interface', $protocol;
+    }
+
+    Class::MOP::load_class($protocol);
+
+    $self->_set_interface(
+        $protocol->new(
+            %$_,
+            engine => $self,
+        )
+    );
 }
 
 sub engine { shift }
