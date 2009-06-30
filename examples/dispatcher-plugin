@@ -1,0 +1,51 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+use IM::Engine;
+
+# This is a rock-paper-scissors IRC bot that uses IM::Engine::Plugin::Dispatcher
+
+do {
+    package Rock::Paper::Scissors;
+    use Path::Dispatcher::Declarative -base;
+
+    my %beats = (
+        rock     => 'scissors',
+        paper    => 'rock',
+        scissors => 'paper',
+    );
+
+    on [ ['rock', 'paper', 'scissors'] ] => sub {
+        my $human    = $1;
+        my $computer = (qw/rock paper scissors/)[rand 3];
+
+        my $result = "$human vs $computer: ";
+
+        $result .= "It's a draw!" if $human    eq $computer;
+        $result .= "You win!"     if $computer eq $beats{$human};
+        $result .= "I win!"       if $human    eq $beats{$computer};
+
+        return $result;
+    };
+};
+
+IM::Engine->new(
+    interface => {
+        protocol    => 'IRC',
+        credentials => {
+            server   => 'irc.perl.org',
+            channels => ['#im-engine'],
+            nick     => 'IM_Engine',
+        },
+    },
+    plugins => [
+        Dispatcher => {
+            dispatcher => 'Rock::Paper::Scissors',
+        },
+
+        # If you're running a non-IRC bot, you probably want to tell the user
+        # about invalid commands with:
+        # 404 => {},
+    ],
+)->run;
+
