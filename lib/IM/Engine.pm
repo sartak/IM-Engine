@@ -38,6 +38,8 @@ sub BUILD {
     $self->interface->_set_engine($self);
 }
 
+sub engine { shift }
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 no Moose::Util::TypeConstraints;
