@@ -63,5 +63,20 @@ sub plugin_relay {
     return $baton;
 }
 
+sub plugin_default {
+    my $self = shift;
+    my %args = @_;
+
+    my $role   = $args{role};
+    my $method = $args{method};
+
+    for my $plugin ($self->plugins_with($role)) {
+        my $default = $plugin->$method(\%args);
+        return $default if defined $default;
+    }
+
+    return;
+}
+
 1;
 
