@@ -36,7 +36,7 @@ sub BUILD {
 
     $self->_set_interface(
         $protocol->new(
-            %$_,
+            %$interface,
             engine => $self,
         )
     );
