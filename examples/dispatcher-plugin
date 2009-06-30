@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use IM::Engine;
 
-# This is a rock-paper-scissors IRC bot that uses IM::Engine::Plugin::Dispatcher
+# This is a rock-paper-scissors bot that uses IM::Engine::Plugin::Dispatcher
 
 do {
     package Rock::Paper::Scissors;
@@ -25,12 +25,14 @@ do {
         $result .= "You win!"     if $computer eq $beats{$human};
         $result .= "I win!"       if $human    eq $beats{$computer};
 
+        # Just return a string and the plugin will know what to do
         return $result;
     };
 };
 
 IM::Engine->new(
     interface => {
+        # Select any protocol you like. I enjoy CLI and REPL. :)
         protocol    => 'IRC',
         credentials => {
             server   => 'irc.perl.org',
@@ -39,9 +41,13 @@ IM::Engine->new(
         },
     },
     plugins => [
+        # Hook into Path::Dispatcher instead of defining an incoming_callback
         Dispatcher => {
             dispatcher => 'Rock::Paper::Scissors',
         },
+
+        # "Hi", "bye", and "thanks" type commands
+        Flavor => {},
 
         # If you're running a non-IRC bot, you probably want to tell the user
         # about invalid commands with:
