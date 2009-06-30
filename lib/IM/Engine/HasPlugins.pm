@@ -57,7 +57,7 @@ sub plugin_relay {
     my $baton  = $args{baton};
 
     for my $plugin ($self->plugins_with($role)) {
-        $baton = $plugin->$method($baton);
+        $baton = $plugin->$method($baton, \%args);
     }
 
     return $baton;
