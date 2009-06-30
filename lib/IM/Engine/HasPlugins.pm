@@ -22,7 +22,7 @@ after BUILD => sub {
 
             push @plugins, $class->new(%$args, engine => $self->engine);
         }
-        return \@plugins;
+        $self->_set_plugins(\@plugins);
     }
 };
 
