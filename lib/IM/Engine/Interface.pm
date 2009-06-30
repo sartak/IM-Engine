@@ -11,7 +11,7 @@ use constant user_class => 'IM::Engine::User';
 with 'IM::Engine::HasEngine';
 
 has incoming_callback => (
-    is        => 'ro',
+    is        => 'rw',
     isa       => 'CodeRef',
     predicate => 'has_incoming_callback',
 );
