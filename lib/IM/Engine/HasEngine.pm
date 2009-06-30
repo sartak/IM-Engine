@@ -8,7 +8,6 @@ has engine => (
     writer   => '_set_engine',
     isa      => 'IM::Engine',
     weak_ref => 1,
-    handles  => 'IM::Engine::HasPlugins',
 );
 
 1;

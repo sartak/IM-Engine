@@ -4,6 +4,8 @@ use Moose::Util::TypeConstraints;
 
 use IM::Engine::Plugin;
 
+requires 'engine';
+
 sub BUILD { } # provide an empty BUILD if the class lacks one
 after BUILD => sub {
     my $self = shift;
