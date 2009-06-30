@@ -18,11 +18,9 @@ Don't require the runloop, especially if it's not required (such as for both
 AIM and Jabber)
 
 Middleware
-    Path-Dispatcher
     Aliases
     Multiple commands
     Authentication
-    Flavor (hi, bye, thanks)
     HTML
     Buddy list
     User profile
