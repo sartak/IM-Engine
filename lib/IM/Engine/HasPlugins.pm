@@ -6,39 +6,48 @@ use IM::Engine::Plugin;
 
 requires 'engine';
 
-sub BUILD { } # provide an empty BUILD if the class lacks one
-after BUILD => sub {
-    my $self = shift;
-    my $args = shift;
-
-    if (my $plugins = delete $args->{plugins}) {
-        my @args = @$plugins;
-        my @plugins;
-        while (my ($class, $args) = splice @args, 0, 2) {
-            $class = "IM::Engine::Plugin::$class"
-                unless $class =~ s/^\+//;
-
-            Class::MOP::load_class($class);
-
-            push @plugins, $class->new(%$args, engine => $self->engine);
-        }
-        $self->_set_plugins(\@plugins);
-    }
-};
+has plugins_args => (
+    is       => 'ro',
+    isa      => 'ArrayRef',
+    init_arg => 'plugins',
+    default  => sub { [] },
+);
 
 has _plugins => (
     metaclass => 'Collection::List',
     isa       => 'ArrayRef[IM::Engine::Plugin]',
-    default   => sub { [] },
+    builder   => '_build_plugins',
+    init_arg  => undef,
+    lazy      => 1,
     provides  => {
         elements => 'plugins',
         grep     => 'find_plugins',
     },
-
-    # Required for passing in engine
-    writer    => '_set_plugins',
-    init_arg  => undef,
 );
+
+sub BUILD { } # provide an empty default in case the class has none
+after BUILD => sub {
+    my $self = shift;
+
+    # Initialize plugin list so the plugins can perform further initialization
+    $self->plugins;
+};
+
+sub _build_plugins {
+    my $self = shift;
+
+    my @args = @{ $self->plugins_args };
+    my @plugins;
+    while (my ($class, $args) = splice @args, 0, 2) {
+        $class = "IM::Engine::Plugin::$class"
+            unless $class =~ s/^\+//;
+
+        Class::MOP::load_class($class);
+
+        push @plugins, $class->new(%$args, engine => $self->engine);
+    }
+    return \@plugins;
+}
 
 sub plugins_with {
     my $self = shift;
