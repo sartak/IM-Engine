@@ -8,21 +8,26 @@ our $VERSION = '0.01';
 
 with 'IM::Engine::HasPlugins';
 
+has interface_args => (
+    is       => 'ro',
+    isa      => 'HashRef',
+    init_arg => 'interface',
+    required => 1,
+);
+
 has interface => (
     is       => 'ro',
     isa      => 'IM::Engine::Interface',
     handles  => ['run'],
-
-    # Required for passing in $self as engine
     init_arg => undef,
-    writer   => '_set_interface',
+    builder  => '_build_interface',
+    lazy     => 1,
 );
 
-sub BUILD {
+sub _build_interface {
     my $self = shift;
-    my $args = shift;
 
-    my $interface = delete $args->{interface}
+    my $interface = $self->interface_args
         or confess "You must provide 'interface' to " . blessed($self) . "->new";
 
     my $protocol = delete $interface->{protocol}
@@ -34,11 +39,9 @@ sub BUILD {
 
     Class::MOP::load_class($protocol);
 
-    $self->_set_interface(
-        $protocol->new(
-            %$interface,
-            engine => $self,
-        )
+    return $protocol->new(
+        %$interface,
+        engine => $self,
     );
 }
 
