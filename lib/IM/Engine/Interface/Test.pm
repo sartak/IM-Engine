@@ -1,5 +1,6 @@
 package IM::Engine::Interface::Test;
 use Moose;
+use MooseX::AttributeHelpers;
 
 extends 'IM::Engine::Interface';
 
