@@ -11,11 +11,12 @@ has outgoing => (
     default   => sub { [] },
     provides  => {
         push   => 'send_message',
-        splice => 'splice_outgoing',
     },
 );
 
 sub run { confess "Do not call ->run in tests" }
+
+sub splice_outgoing { splice @{ shift->outgoing } }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
