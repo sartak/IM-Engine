@@ -74,9 +74,7 @@ IM::Engine - The HTTP::Engine of instant messaging
                 my $message = $incoming->message;
                 $message =~ tr[a-zA-Z][n-za-mN-ZA-M];
 
-                return $incoming->reply(
-                    message => $message,
-                );
+                return $incoming->reply($message);
             },
         },
     )->run;

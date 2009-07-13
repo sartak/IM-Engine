@@ -14,7 +14,14 @@ has sender => (
 
 sub reply {
     my $self = shift;
-    my %args = @_;
+    my %args;
+
+    if (@_ == 1) {
+        %args = (message => $_[0]);
+    }
+    else {
+        %args = @_;
+    }
 
     Carp::carp("Incoming->reply constructs an Outgoing object for you; it does not automatically send it") if !defined(wantarray);
 
