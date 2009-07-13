@@ -9,11 +9,7 @@ my $engine = IM::Engine->new(
         protocol => 'Test',
         incoming_callback => sub {
             my $incoming = shift;
-            return IM::Engine::Outgoing->new(
-                recipient => $incoming->sender,
-                message   => 'pong!',
-                incoming  => $incoming,
-            );
+            return $incoming->reply(message => 'pong!');
         },
     },
 );
