@@ -7,7 +7,8 @@ extends 'IM::Engine::Interface';
 has outgoing => (
     metaclass => 'Collection::Array',
     is        => 'ro',
-    isa       => 'ArrayRef[IM::Outgoing]',
+    isa       => 'ArrayRef[IM::Engine::Outgoing]',
+    default   => sub { [] },
     provides  => {
         push   => 'send_message',
         splice => 'splice_outgoing',
