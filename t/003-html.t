@@ -8,10 +8,11 @@ my @plaintext;
 sub incoming_callback {
     my $incoming = shift;
 
-    push @message, $incoming->message;
-    push @plaintext, $incoming->plaintext;
-
     my $plaintext = $incoming->plaintext;
+
+    push @message,   $incoming->message;
+    push @plaintext, $plaintext;
+
     $plaintext =~ tr[a-zA-Z][n-za-mN-ZA-M];
 
     return $incoming->reply($plaintext);
