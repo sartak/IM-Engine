@@ -24,7 +24,8 @@ sub _build_oscar {
     $oscar->set_callback_im_in(sub {
         my (undef, $sender, $message, $is_away) = @_;
 
-        my $incoming = $weakself->incoming_class->new(
+        my $incoming = $weakself->incoming_class->new_with_traits(
+            traits  => ['HTMLish'],
             sender  => $weakself->user_class->new(name => $sender->stringify),
             message => $message,
         );
