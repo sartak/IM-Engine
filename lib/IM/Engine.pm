@@ -6,7 +6,7 @@ use Moose::Util::TypeConstraints;
 
 use IM::Engine::Interface;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 with 'IM::Engine::HasPlugins';
 
