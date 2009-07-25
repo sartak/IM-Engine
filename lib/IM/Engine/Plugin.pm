@@ -1,5 +1,6 @@
 package IM::Engine::Plugin;
 use Moose;
+use MooseX::StrictConstructor;
 
 with 'IM::Engine::HasEngine';
 

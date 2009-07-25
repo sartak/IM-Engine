@@ -1,5 +1,6 @@
 package IM::Engine;
 use Moose;
+use MooseX::StrictConstructor;
 use Moose::Util::TypeConstraints;
 
 use IM::Engine::Interface;

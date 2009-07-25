@@ -1,5 +1,6 @@
 package IM::Engine::Incoming::Jabber;
 use Moose;
+use MooseX::StrictConstructor;
 
 extends 'IM::Engine::Incoming';
 

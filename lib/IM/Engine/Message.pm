@@ -1,5 +1,6 @@
 package IM::Engine::Message;
 use Moose;
+use MooseX::StrictConstructor;
 
 with 'MooseX::Traits';
 has '+_trait_namespace' => (default => __PACKAGE__);

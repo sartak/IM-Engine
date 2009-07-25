@@ -1,5 +1,6 @@
 package IM::Engine::User::AIM;
 use Moose;
+use MooseX::StrictConstructor;
 
 extends 'IM::Engine::User';
 

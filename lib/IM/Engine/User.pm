@@ -1,5 +1,6 @@
 package IM::Engine::User;
 use Moose;
+use MooseX::StrictConstructor;
 
 has name => (
     is       => 'ro',

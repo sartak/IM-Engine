@@ -1,5 +1,7 @@
 package IM::Engine::Interface::IRC;
 use Moose;
+use MooseX::StrictConstructor;
+
 use Scalar::Util 'weaken';
 
 use IM::Engine::Interface::IRC::Bot;

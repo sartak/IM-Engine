@@ -1,5 +1,6 @@
 package IM::Engine::Interface;
 use Moose;
+use MooseX::StrictConstructor;
 use MooseX::AttributeHelpers;
 
 use IM::Engine::Incoming;

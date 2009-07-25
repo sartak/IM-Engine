@@ -1,5 +1,6 @@
 package IM::Engine::Interface::REPL;
 use Moose;
+use MooseX::StrictConstructor;
 
 extends 'IM::Engine::Interface';
 

@@ -1,5 +1,6 @@
 package IM::Engine::User::Jabber;
 use Moose;
+use MooseX::StrictConstructor;
 
 extends 'IM::Engine::User';
 

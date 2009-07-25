@@ -1,5 +1,7 @@
 package IM::Engine::Interface::Jabber;
 use Moose;
+use MooseX::StrictConstructor;
+
 use Scalar::Util 'weaken';
 use AnyEvent;
 use AnyEvent::XMPP::Client;

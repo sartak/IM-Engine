@@ -1,5 +1,6 @@
 package IM::Engine::Incoming;
 use Moose;
+use MooseX::StrictConstructor;
 
 extends 'IM::Engine::Message';
 

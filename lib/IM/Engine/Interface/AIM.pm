@@ -1,5 +1,7 @@
 package IM::Engine::Interface::AIM;
 use Moose;
+use MooseX::StrictConstructor;
+
 use Scalar::Util 'weaken';
 use Net::OSCAR;
 
