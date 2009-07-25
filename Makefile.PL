@@ -2,6 +2,7 @@ use inc::Module::Install;
 
 name     'IM-Engine';
 all_from 'lib/IM/Engine.pm';
+githubmeta;
 
 requires 'Moose';
 requires 'MooseX::AttributeHelpers';
