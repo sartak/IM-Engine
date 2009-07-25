@@ -10,6 +10,7 @@ features(
     'AIM interface' => [
         -default => 0,
         recommends('Net::OSCAR'),
+        recommends('HTML::TreeBuilder'),
     ],
     'Jabber interface' => [
         -default => 0,
