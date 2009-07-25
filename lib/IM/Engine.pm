@@ -81,10 +81,79 @@ IM::Engine - The HTTP::Engine of instant messaging
 
 =head1 DESCRIPTION
 
+IM::Engine abstracts away the details of talking through different IM services.
+A Jabber bot will be essentially the same as an AIM bot, so IM::Engine
+facilitates switching between these different services.
+
+It is currently alpha quality with serious features missing and is rife with
+horrible bugs. I'm releasing it under the "release early, release often"
+doctrine. Backwards compatibility may be broken in any subsequent release.
+
+=head1 PROTOCOLS
+
+IM::Engine currently understands the following protocols:
+
+=head2 L<AIM|IM::Engine::Interface::AIM>
+
+Talks AIM using L<Net::OSCAR>
+
+    IM::Engine->new(
+        interface => {
+            protocol => 'AIM',
+            credentials => {
+                screenname => 'foo',
+                password   => '...',
+            },
+        },
+        # ...
+    );
+
+=head2 L<Jabber|IM::Engine::Interface::Jabber>
+
+XMPP interface for Jabber.
+
+    IM::Engine->new(
+        interface => {
+            protocol => 'Jabber',
+            credentials => {
+                jid      => 'foo@gchat.com',
+                password => '...',
+            },
+        },
+        # ...
+    );
+
+=head2 L<REPL|IM::Engine::Interface::REPL>
+
+Opens up a shell where every line of input is an IM. Responses will be printed
+to standard output.
+
+    IM::Engine->new(
+        interface => {
+            protocol => 'REPL',
+        },
+        # ...
+    );
+
+=head2 L<CLI|IM::Engine::Interface::CLI>
+
+Pass your IM as command-line arguments. Your response will be printed to
+standard output.
+
+    IM::Engine->new(
+        interface => {
+            protocol => 'CLI',
+        },
+        # ...
+    );
 
 =head1 AUTHOR
 
 Shawn M Moore, C<sartak@gmail.com>
+
+=head1 SEE ALSO
+
+L<HTTP::Engine>
 
 =head1 COPYRIGHT AND LICENSE
 
