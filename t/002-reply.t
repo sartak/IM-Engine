@@ -7,24 +7,5 @@ sub incoming_callback {
     return $incoming->reply('pong!');
 }
 
-my $sender = IM::Engine::User->new(
-    name => 'test sender',
-);
+respond_ok('ping!' => 'pong!');
 
-engine->interface->received_message(
-    IM::Engine::Incoming->new(
-        sender  => $sender,
-        message => 'ping!',
-    ),
-);
-
-is_deeply([engine->interface->splice_outgoing], [
-    IM::Engine::Outgoing->new(
-        recipient => $sender,
-        message   => 'pong!',
-        incoming  => IM::Engine::Incoming->new(
-            sender  => $sender,
-            message => 'ping!',
-        ),
-    ),
-]);

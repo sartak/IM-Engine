@@ -17,8 +17,36 @@ sub import_extra {
         },
     );
 
+    my $sender = IM::Engine::User->new(
+        name => 'tester',
+    );
+
     no strict 'refs';
-    *{$caller.'::engine'} = sub { $engine };
+    *{$caller.'::engine'}     = sub { $engine };
+    *{$caller.'::sender'}     = sub { $sender };
+    *{$caller.'::respond_ok'} = \&respond_ok;
+}
+
+sub respond_ok {
+    local $Test::Builder::Level = $Test::Builder::Level + 1;
+    my $incoming = shift;
+    my $expected = shift;
+    my $name     = shift;
+
+    my $caller = caller($Test::Builder::Level-2);
+    my $engine = $caller->engine;
+    my $sender = $caller->sender;
+
+    $engine->interface->received_message(
+        ref($incoming) ? $incoming : IM::Engine::Incoming->new(
+            sender  => $sender,
+            message => $incoming,
+        ),
+    );
+
+    my @expected = ref($expected) eq 'ARRAY' ? @$expected : ($expected);
+    my @got = map { $_->message } $engine->interface->splice_outgoing;
+    Test::More::is_deeply(\@expected, \@got);
 }
 
 1;
