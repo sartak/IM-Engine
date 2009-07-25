@@ -7,6 +7,7 @@ requires 'Moose';
 requires 'MooseX::AttributeHelpers';
 requires 'MooseX::Traits';
 requires 'MooseX::StrictConstructor';
+requires 'Scalar::Util';
 
 features(
     'AIM interface' => [
