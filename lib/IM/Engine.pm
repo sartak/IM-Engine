@@ -95,7 +95,7 @@ IM::Engine currently understands the following protocols:
 
 =head2 L<AIM|IM::Engine::Interface::AIM>
 
-Talks AIM using L<Net::OSCAR>
+Talks AIM using L<Net::OSCAR>:
 
     IM::Engine->new(
         interface => {
@@ -110,7 +110,7 @@ Talks AIM using L<Net::OSCAR>
 
 =head2 L<Jabber|IM::Engine::Interface::Jabber>
 
-XMPP interface for Jabber.
+Talks XMPP using L<AnyEvent::XMPP>:
 
     IM::Engine->new(
         interface => {
@@ -126,7 +126,7 @@ XMPP interface for Jabber.
 =head2 L<REPL|IM::Engine::Interface::REPL>
 
 Opens up a shell where every line of input is an IM. Responses will be printed
-to standard output.
+to standard output. Handy for testing.
 
     IM::Engine->new(
         interface => {
@@ -138,7 +138,8 @@ to standard output.
 =head2 L<CLI|IM::Engine::Interface::CLI>
 
 Pass your IM as command-line arguments. Your response will be printed to
-standard output.
+standard output. Handy for testing but could also be distributed as a useful
+script (I want this for Hiveminder's IM interface C<:)>)
 
     IM::Engine->new(
         interface => {
