@@ -1,8 +1,6 @@
 #!/usr/bin/env perl
-use strict;
-use warnings;
-use IM::Engine;
-use Test::More tests => 1;
+use lib 'lib';
+use Test::IM::Engine tests => 1;
 
 my @message;
 my @plaintext;
