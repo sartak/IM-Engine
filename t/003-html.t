@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
-use lib 'lib';
-use Test::IM::Engine tests => 1;
+use lib 't/lib';
+use Test::IM::Engine tests => 9;
 
 my @message;
 my @plaintext;
