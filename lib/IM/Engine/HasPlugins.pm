@@ -5,6 +5,8 @@ use MooseX::AttributeHelpers;
 
 use IM::Engine::Plugin;
 
+use Data::OptList 'mkopt';
+
 requires 'engine';
 
 has plugins_args => (
@@ -37,15 +39,25 @@ after BUILD => sub {
 sub _build_plugins {
     my $self = shift;
 
-    my @args = @{ $self->plugins_args };
+    my $args = mkopt(
+        $self->plugins_args,
+        'plugins',
+        0, # can have more than one instance of the same plugin
+        [qw(HASH)],
+    );
+
     my @plugins;
-    while (my ($class, $args) = splice @args, 0, 2) {
+    for (@$args) {
+        my ($class, $params) = @$_;
         $class = "IM::Engine::Plugin::$class"
             unless $class =~ s/^\+//;
 
         Class::MOP::load_class($class);
 
-        push @plugins, $class->new(%$args, engine => $self->engine);
+        push @plugins, $class->new(
+            %{ $params || {} },
+            engine => $self->engine,
+        );
     }
     return \@plugins;
 }
