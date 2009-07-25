@@ -1,4 +1,5 @@
 package IM::Engine;
+use 5.008001;
 use Moose;
 use MooseX::StrictConstructor;
 use Moose::Util::TypeConstraints;
