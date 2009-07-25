@@ -71,7 +71,7 @@ IM::Engine - The HTTP::Engine of instant messaging
             incoming_callback => sub {
                 my $incoming = shift;
 
-                my $message = $incoming->message;
+                my $message = $incoming->plaintext;
                 $message =~ tr[a-zA-Z][n-za-mN-ZA-M];
 
                 return $incoming->reply($message);
