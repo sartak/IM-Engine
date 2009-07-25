@@ -1,31 +1,24 @@
 #!/usr/bin/env perl
-use strict;
-use warnings;
-use IM::Engine;
-use Test::More tests => 1;
+use lib 't/lib';
+use Test::IM::Engine tests => 1;
 
-my $engine = IM::Engine->new(
-    interface => {
-        protocol => 'Test',
-        incoming_callback => sub {
-            my $incoming = shift;
-            return $incoming->reply('pong!');
-        },
-    },
-);
+sub incoming_callback {
+    my $incoming = shift;
+    return $incoming->reply('pong!');
+}
 
 my $sender = IM::Engine::User->new(
     name => 'test sender',
 );
 
-$engine->interface->received_message(
+engine->interface->received_message(
     IM::Engine::Incoming->new(
         sender  => $sender,
         message => 'ping!',
     ),
 );
 
-is_deeply([$engine->interface->splice_outgoing], [
+is_deeply([engine->interface->splice_outgoing], [
     IM::Engine::Outgoing->new(
         recipient => $sender,
         message   => 'pong!',
