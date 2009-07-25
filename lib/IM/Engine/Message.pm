@@ -1,6 +1,8 @@
 package IM::Engine::Message;
 use Moose;
+
 with 'MooseX::Traits';
+has '+_trait_namespace' => (default => __PACKAGE__);
 
 has message => (
     is       => 'ro',
