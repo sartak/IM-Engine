@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 use lib 't/lib';
-use Test::IM::Engine tests => 9;
+use Test::IM::Engine tests => 12;
 
 my @message;
 my @plaintext;
@@ -37,4 +37,12 @@ respond_ok(
 );
 is_deeply([splice @message],   ['<HTML><FONT COLOR="red"><b>ACK!</b></FONT></HTML>']);
 is_deeply([splice @plaintext], ['ACK!']);
+
+respond_ok(
+    htmlish('&lt;html&gt;&quot;&amp;'),
+    '<ugzy>"&',
+    'make sure HTML entity escaping works',
+);
+is_deeply([splice @message],   ['&lt;html&gt;&quot;&amp;']);
+is_deeply([splice @plaintext], ['<html>"&']);
 
