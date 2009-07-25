@@ -24,6 +24,7 @@ sub import_extra {
     no strict 'refs';
     *{$caller.'::engine'}     = sub { $engine };
     *{$caller.'::sender'}     = sub { $sender };
+    *{$caller.'::htmlish'}    = \&htmlish;
     *{$caller.'::respond_ok'} = \&respond_ok;
 }
 
@@ -33,7 +34,7 @@ sub respond_ok {
     my $expected = shift;
     my $name     = shift;
 
-    my $caller = caller($Test::Builder::Level-2);
+    my $caller = caller($Test::Builder::Level - 2);
     my $engine = $caller->engine;
     my $sender = $caller->sender;
 
@@ -47,6 +48,17 @@ sub respond_ok {
     my @expected = ref($expected) eq 'ARRAY' ? @$expected : ($expected);
     my @got = map { $_->message } $engine->interface->splice_outgoing;
     Test::More::is_deeply(\@expected, \@got);
+}
+
+sub htmlish {
+    unshift @_, 'message' if @_ == 1;
+    my %args = (
+        traits  => ['HTMLish'],
+        sender  => caller->sender,
+        @_,
+    );
+
+    return IM::Engine::Incoming->new_with_traits(%args);
 }
 
 1;

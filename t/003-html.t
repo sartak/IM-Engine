@@ -18,23 +18,22 @@ sub incoming_callback {
     return $incoming->reply($plaintext);
 }
 
-respond_ok('furrfu!' => 'sheesh!');
+respond_ok('furrfu!' => 'sheesh!', 'no HTML still works fine');
 is_deeply([splice @message],   ['furrfu!']);
 is_deeply([splice @plaintext], ['furrfu!']);
 
 respond_ok(
     '<HTML><FONT COLOR="red"><b>ACK!</b></FONT></HTML>' =>
     '<UGZY><SBAG PBYBE="erq"><o>NPX!</o></SBAG></UGZY>',
+    'if you do not ask for HTML stripping, you do not get it',
 );
 is_deeply([splice @message],   ['<HTML><FONT COLOR="red"><b>ACK!</b></FONT></HTML>']);
 is_deeply([splice @plaintext], ['<HTML><FONT COLOR="red"><b>ACK!</b></FONT></HTML>']);
 
 respond_ok(
-    IM::Engine::Incoming->new_with_traits(
-        traits  => ['HTMLish'],
-        sender  => sender,
-        message => '<HTML><FONT COLOR="red"><b>ACK!</b></FONT></HTML>',
-    ) => 'NPX!',
+    htmlish('<HTML><FONT COLOR="red"><b>ACK!</b></FONT></HTML>'),
+    'NPX!',
+    'if you ask for HTML stripping, you get it!',
 );
 is_deeply([splice @message],   ['<HTML><FONT COLOR="red"><b>ACK!</b></FONT></HTML>']);
 is_deeply([splice @plaintext], ['ACK!']);
