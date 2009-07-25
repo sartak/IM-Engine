@@ -5,6 +5,7 @@ all_from 'lib/IM/Engine.pm';
 
 requires 'Moose';
 requires 'MooseX::AttributeHelpers';
+requires 'MooseX::Traits';
 
 features(
     'AIM interface' => [

@@ -1,5 +1,6 @@
 package IM::Engine::Message;
 use Moose;
+with 'MooseX::Traits';
 
 has message => (
     is       => 'ro',
