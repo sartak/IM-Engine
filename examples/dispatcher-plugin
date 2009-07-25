@@ -47,11 +47,11 @@ IM::Engine->new(
         },
 
         # "Hi", "bye", and "thanks" type commands
-        'Dispatcher::Flavor' => {},
+        'Dispatcher::Flavor',
 
         # If you're running a non-IRC bot, you probably want to tell the user
         # about invalid commands with:
-        # 'Dispatcher::404' => {},
+        # 'Dispatcher::404',
     ],
 )->run;
 
