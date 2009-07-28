@@ -33,7 +33,7 @@ sub _build_interface {
         or confess "You must provide 'interface' to " . blessed($self) . "->new";
 
     my $protocol = delete $interface->{protocol}
-        or confess "Your IM::Engine::Interface definition must include the 'protocol' key.";
+        or confess "Your IM::Engine::Interface definition must include the 'protocol' key";
 
     if ($protocol !~ s{^\+}{}) {
         $protocol = join '::', 'IM', 'Engine', 'Interface', $protocol;
