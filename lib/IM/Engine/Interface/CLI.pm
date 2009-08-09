@@ -21,9 +21,10 @@ sub run {
         engine => $self->engine,
     );
 
-    my $incoming = $self->incoming_class->new(
+    my $incoming = $self->incoming_class->new_with_plugins(
         sender  => $sender,
         message => $input,
+        engine  => $self->engine,
     );
 
     $self->received_message($incoming);

@@ -31,10 +31,11 @@ sub _build_oscar {
             engine => $weakself->engine,
         );
 
-        my $incoming = $weakself->incoming_class->new_with_traits(
+        my $incoming = $weakself->incoming_class->new_with_plugins(
             traits  => ['HTMLish'],
             sender  => $sender,
             message => $message,
+            engine  => $weakself->engine,
         );
 
         $weakself->received_message($incoming);

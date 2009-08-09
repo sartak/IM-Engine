@@ -50,10 +50,11 @@ sub _build_xmpp {
                 engine => $weakself->engine,
             );
 
-            my $incoming = $weakself->incoming_class->new(
+            my $incoming = $weakself->incoming_class->new_with_plugins(
                 sender       => $sender,
                 xmpp_message => $msg,
                 message      => $msg->body,
+                engine       => $weakself->engine,
             );
 
             $weakself->received_message($incoming);
