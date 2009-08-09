@@ -8,5 +8,7 @@ around _build_plaintext => sub {
     return HTML::TreeBuilder->new_from_content($htmlish)->as_text;
 };
 
+no Moose::Role;
+
 1;
 

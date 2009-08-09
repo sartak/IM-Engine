@@ -35,6 +35,8 @@ role {
     };
 };
 
+no MooseX::Role::Parameterized;
+
 1;
 
 __END__

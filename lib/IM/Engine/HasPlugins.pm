@@ -139,6 +139,8 @@ sub plugin_collect {
     return @items;
 }
 
+no Moose::Role;
+
 1;
 
 __END__

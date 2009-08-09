@@ -9,5 +9,7 @@ sub traits {
     return ();
 }
 
+no Moose::Role;
+
 1;
 

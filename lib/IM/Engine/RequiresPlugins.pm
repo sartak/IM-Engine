@@ -24,3 +24,7 @@ role {
     };
 };
 
+no MooseX::Role::Parameterized;
+
+1;
+
