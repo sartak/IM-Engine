@@ -1,8 +1,6 @@
 More interfaces:
     DJabberd
     Twitter
-    Test? - might not be necessary, we just deal with Request and Responses
-            ourselves
 
 Make sure that we encode messages properly for all interfaces
     Jabber and IRC are fine
