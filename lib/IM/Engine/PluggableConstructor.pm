@@ -9,6 +9,7 @@ parameter role_specifier => (
 
 role {
     my $p = shift;
+    my $role_specifier = $p->role_specifier;
 
     method new_with_plugins => sub {
         my $class = shift;
@@ -19,14 +20,14 @@ role {
 
         %args = (
             $engine->plugin_collect(
-                role   => $p->role_specifier,
+                role   => $role_specifier,
                 method => 'constructor_arguments',
             ),
             %args,
         );
 
         push @{ $args{traits} ||= [] }, $engine->plugin_collect(
-            role   => $p->role_specifier,
+            role   => $role_specifier,
             method => 'traits',
         );
 
