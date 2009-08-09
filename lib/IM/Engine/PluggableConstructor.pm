@@ -25,7 +25,7 @@ role {
             %args,
         );
 
-        push @{ $args{traits} || [] }, $engine->plugin_collect(
+        push @{ $args{traits} ||= [] }, $engine->plugin_collect(
             role   => $p->role_specifier,
             method => 'traits',
         );
