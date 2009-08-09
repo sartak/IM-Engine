@@ -2,7 +2,6 @@ package IM::Engine;
 use 5.008001;
 use Moose;
 use MooseX::StrictConstructor;
-use Moose::Util::TypeConstraints;
 
 use IM::Engine::Interface;
 
@@ -51,7 +50,6 @@ sub engine { shift }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
-no Moose::Util::TypeConstraints;
 
 1;
 
