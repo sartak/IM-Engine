@@ -2,7 +2,11 @@ package IM::Engine::User;
 use Moose;
 use MooseX::StrictConstructor;
 
-with 'MooseX::Traits';
+use IM::Engine::ExtendsObject::User;
+with 'IM::Engine::PluggableConstructor' => {
+    does_role => 'IM::Engine::ExtendsObject::User',
+};
+
 has '+_trait_namespace' => (default => __PACKAGE__);
 
 has name => (

@@ -2,7 +2,11 @@ package IM::Engine::Message;
 use Moose;
 use MooseX::StrictConstructor;
 
-with 'MooseX::Traits';
+use IM::Engine::ExtendsObject::Message;
+with 'IM::Engine::PluggableConstructor' => {
+    does_role => 'IM::Engine::ExtendsObject::Message',
+};
+
 has '+_trait_namespace' => (default => __PACKAGE__);
 
 has message => (
