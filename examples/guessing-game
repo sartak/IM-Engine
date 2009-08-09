@@ -1,3 +1,4 @@
+#!/usr/bin/env perl
 package Games::HiLo::Dispatcher;
 use Path::Dispatcher::Declarative -base;
 
