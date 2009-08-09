@@ -89,6 +89,10 @@ It is currently alpha quality with serious features missing and is rife with
 horrible bugs. I'm releasing it under the "release early, release often"
 doctrine. Backwards compatibility may be broken in subsequent releases.
 
+In particular, I am likely to move L<IM::Engine::Interface::AIM>,
+L<IM::Engine::Interface::Jabber>, and L<IM::Engine::Interface::IRC> into their
+own distributions, since they have their own dependencies.
+
 =head1 PROTOCOLS
 
 IM::Engine currently understands the following protocols:
