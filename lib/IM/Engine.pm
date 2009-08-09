@@ -181,7 +181,24 @@ Shawn M Moore, C<sartak@gmail.com>
 
 =head1 SEE ALSO
 
-L<HTTP::Engine>
+=over 4
+
+=item L<HTTP::Engine>
+
+The inspiration for the initial design
+
+=item L<IM::Engine::Plugin::Dispatcher>
+
+Uses L<Path::Dispatcher> to provide sugary IM dispatch
+
+=item L<IM::Engine::Plugin::State>
+
+Provides state management methods on L<IM::Engine::User>s
+
+=item L<IM::Engine::Plugin::MultiCommand>
+
+Allows multiple commands to be run in one IM (builds on
+L<IM::Engine::Plugin::Dispatcher>)
 
 =head1 COPYRIGHT AND LICENSE
 
