@@ -14,7 +14,7 @@ role {
         my $class = shift;
         my %args  = @_;
 
-        my $engine = $args{engine}
+        my $engine = delete $args{engine}
             or confess "You must pass the engine to new_with_plugins";
 
         %args = (
