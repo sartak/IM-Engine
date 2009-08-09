@@ -71,17 +71,31 @@ sub plugins_with {
     return $self->find_plugins(sub { $_->does($role) });
 }
 
+sub each_plugin {
+    my $self = shift;
+    my %args = @_;
+
+    my $role     = $args{role};
+    my $callback = $args{callback};
+
+    for my $plugin ($self->plugins_with($role)) {
+        $callback->($plugin);
+    }
+
+    return;
+}
+
 sub plugin_relay {
     my $self = shift;
     my %args = @_;
 
-    my $role   = $args{role};
     my $method = $args{method};
     my $baton  = $args{baton};
 
-    for my $plugin ($self->plugins_with($role)) {
-        $baton = $plugin->$method($baton, \%args);
-    }
+    $self->each_plugin(
+        %args,
+        callback => sub { $baton = shift->$method($baton, \%args) },
+    );
 
     return $baton;
 }
@@ -90,29 +104,21 @@ sub plugin_default {
     my $self = shift;
     my %args = @_;
 
-    my $role   = $args{role};
     my $method = $args{method};
+    my $default;
 
-    for my $plugin ($self->plugins_with($role)) {
-        my $default = $plugin->$method(\%args);
-        return $default if defined $default;
-    }
+    # I think I want to use Continuation::Escape here :)
+    $self->each_plugin(
+        %args,
+        callback => sub {
+            return if $default;
 
-    return;
-}
+            my $plugin = shift;
+            $default = $plugin->$method(\%args);
+        },
+    );
 
-sub each_plugin {
-    my $self = shift;
-    my %args = @_;
-
-    my $role   = $args{role};
-    my $method = $args{method};
-
-    for my $plugin ($self->plugins_with($role)) {
-        $plugin->$method(\%args);
-    }
-
-    return;
+    return $default;
 }
 
 1;
