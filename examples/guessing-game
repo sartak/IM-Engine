@@ -1,0 +1,88 @@
+package Games::HiLo::Dispatcher;
+use Path::Dispatcher::Declarative -base;
+
+sub clear_state_for {
+    my $user = shift;
+    $user->clear_state($_) for qw/correct guesses/;
+}
+
+on [['reset', 'clear', 'restart']] => sub {
+    my $incoming = shift;
+    clear_state_for($incoming->sender);
+
+    return 'Okay, try again.';
+};
+
+on guesses => sub {
+    my $incoming = shift;
+    my $user     = $incoming->sender;
+
+    my $guesses = $user->get_state('guesses');
+    if (!$guesses) {
+        return 'You have made no guesses.';
+    }
+    elsif ($guesses == 1) {
+        return 'You have made 1 guess.';
+    }
+    else {
+        return "You have made $guesses guesses.";
+    }
+};
+
+on cheat => sub {
+    my $incoming = shift;
+    my $user     = $incoming->sender;
+
+    return "You aren't even playing yet!"
+        unless $user->has_state('correct');
+
+    return 'Psst, the correct answer is '
+            . $user->get_state('correct')
+            . '.';
+};
+
+on qr{^(\d+)$} => sub {
+    my $guess    = $1;
+    my $incoming = shift;
+    my $user     = $incoming->sender;
+
+    if (!$user->has_state('correct')) {
+        $user->set_state(guesses => 0);
+        $user->set_state(correct => (1 + int rand 100));
+    }
+
+    my $correct = $user->get_state('correct');
+    my $guesses = $user->get_state('guesses') + 1;
+    $user->set_state(guesses => $guesses);
+
+    if ($guess == $correct) {
+        clear_state_for($user);
+        return "Correct! You got it in $guesses guess"
+             . ($guesses == 1 ? '' : 'es')
+             . '!';
+    }
+
+    return 'Too low' if $guess < $correct;
+    return 'Too high.';
+};
+
+package main;
+use IM::Engine;
+
+IM::Engine->new(
+    interface => {
+        protocol => 'IRC',
+        credentials => {
+            server   => 'irc.perl.org',
+            channels => ['#im-engine'],
+            nick     => 'Bisector',
+        },
+    },
+    plugins => [
+        'State::InMemory',
+        Dispatcher => {
+            dispatcher => 'Games::HiLo::Dispatcher',
+        },
+    ],
+)->run;
+
