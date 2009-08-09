@@ -48,7 +48,9 @@ IM::Engine::PluggableConstructor - provide C<new_with_plugins>
 Some plugins need to extend built-in classes. For example,
 L<IM::Engine::Plugin::State> needs to extend L<IM::Engine::User> with methods
 such as L<get_state> and L<set_state>. This role provides a new constructor
-C<new_with_plugins> to classes that need to be extensible.
+C<new_with_plugins> to classes that need to be extensible. Plugins can then
+specify roles to use for the instance, as well as additional constructor
+parameters.
 
 =head1 PARAMETERS
 
