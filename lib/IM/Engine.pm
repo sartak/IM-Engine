@@ -127,6 +127,29 @@ Talks XMPP using L<AnyEvent::XMPP>:
         # ...
     );
 
+=head2 L<IRC|IM::Engine::Interface::IRC>
+
+Talks IRC using L<Bot::BasicBot> (though should switch to L<AnyEvent::IRC>):
+
+    IM::Engine->new(
+        interface => {
+            protocol => 'IRC',
+            credentials => {
+                server   => "irc.perl.org",
+                port     => 6667,
+                channels => ["#moose", "#im-engine"],
+                nick     => "Boot",
+            },
+        },
+        # ...
+    );
+
+There has been some concern about whether IRC is actually an IM protocol. I
+certainly consider private messages to be IM-ish. For some bots, joining
+regular human-infested channels would also make sense. Bots that just respond
+to chatters (which is most, if not all, of what purl does) make sense outside
+of the context of IRC, so that is the use case I am targetting.
+
 =head2 L<REPL|IM::Engine::Interface::REPL>
 
 Opens up a shell where every line of input is an IM. Responses will be printed
