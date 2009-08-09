@@ -1,5 +1,7 @@
 IM::Engine changes
 
+0.03
+
 0.02  2009-08-08
     Document most of the user-visible classes
     Use Data::OptList to massage plugin arguments
