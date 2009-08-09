@@ -2,6 +2,9 @@ package IM::Engine::User;
 use Moose;
 use MooseX::StrictConstructor;
 
+with 'MooseX::Traits';
+has '+_trait_namespace' => (default => __PACKAGE__);
+
 has name => (
     is       => 'ro',
     isa      => 'Str',
