@@ -18,15 +18,10 @@ on guesses => sub {
     my $user     = $incoming->sender;
 
     my $guesses = $user->get_state('guesses');
-    if (!$guesses) {
-        return 'You have made no guesses.';
-    }
-    elsif ($guesses == 1) {
-        return 'You have made 1 guess.';
-    }
-    else {
-        return "You have made $guesses guesses.";
-    }
+
+    if (!$guesses)        { return 'You have made no guesses.' }
+    elsif ($guesses == 1) { return 'You have made 1 guess.' }
+    else                  { return "You have made $guesses guesses." }
 };
 
 on cheat => sub {
@@ -36,9 +31,7 @@ on cheat => sub {
     return "You aren't even playing yet!"
         unless $user->has_state('correct');
 
-    return 'Psst, the correct answer is '
-            . $user->get_state('correct')
-            . '.';
+    return 'Psst, the correct answer is ' . $user->get_state('correct') . '.';
 };
 
 on qr{^(\d+)$} => sub {
@@ -47,12 +40,11 @@ on qr{^(\d+)$} => sub {
     my $user     = $incoming->sender;
 
     if (!$user->has_state('correct')) {
-        $user->set_state(guesses => 0);
         $user->set_state(correct => (1 + int rand 100));
     }
 
     my $correct = $user->get_state('correct');
-    my $guesses = $user->get_state('guesses') + 1;
+    my $guesses = ($user->get_state('guesses') || 0) + 1;
     $user->set_state(guesses => $guesses);
 
     if ($guess == $correct) {
@@ -62,7 +54,7 @@ on qr{^(\d+)$} => sub {
              . '!';
     }
 
-    return 'Too low' if $guess < $correct;
+    return 'Too low.' if $guess < $correct;
     return 'Too high.';
 };
 
