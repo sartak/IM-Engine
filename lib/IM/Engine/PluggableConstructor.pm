@@ -37,3 +37,37 @@ role {
 
 1;
 
+__END__
+
+=head1 NAME
+
+IM::Engine::PluggableConstructor - provide C<new_with_plugins>
+
+=head1 DESCRIPTION
+
+Some plugins need to extend built-in classes. For example,
+L<IM::Engine::Plugin::State> needs to extend L<IM::Engine::User> with methods
+such as L<get_state> and L<set_state>. This role provides a new constructor
+C<new_with_plugins> to classes that need to be extensible.
+
+=head1 PARAMETERS
+
+=head2 role_specifier
+
+A string representing the role that can extend the consuming class. Prefix a
+C<+> character to specify an absolute role name. Otherwise, the role name is
+relative based on the same rules that L<MooseX::Traits> uses.
+
+=head1 METHODS
+
+=head2 new_with_plugins
+
+An alternate constructor that includes additional parameters specified by
+plugins. This also extends the C<traits> option to include additional traits
+specified by plugins.
+
+You must pass the C<engine> argument so we can ask plugins about what to
+include.
+
+=cut
+
