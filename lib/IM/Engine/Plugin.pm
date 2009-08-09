@@ -4,6 +4,8 @@ use MooseX::StrictConstructor;
 
 with 'IM::Engine::HasEngine';
 
+sub post_initialization { }
+
 __PACKAGE__->meta->make_immutable;
 
 1;

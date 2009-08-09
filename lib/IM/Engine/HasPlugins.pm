@@ -33,6 +33,9 @@ after BUILD => sub {
 
     # Initialize plugin list so the plugins can perform further initialization
     $self->plugins;
+
+    # Let them validate that other plugins exist, etc.
+    $_->post_initialization for $self->plugins;
 };
 
 sub _build_plugins {
