@@ -3,7 +3,7 @@ use MooseX::Role::Parameterized;
 with 'MooseX::Traits';
 
 parameter role_specifier => (
-    does     => 'Str',
+    isa      => 'Str',
     required => 1,
 );
 
