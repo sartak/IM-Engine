@@ -1,4 +1,6 @@
 #!/usr/bin/env perl
+use IM::Engine;
+
 package Games::HiLo::Dispatcher;
 use Path::Dispatcher::Declarative -base;
 
@@ -60,7 +62,6 @@ on qr{^(\d+)$} => sub {
 };
 
 package main;
-use IM::Engine;
 
 IM::Engine->new(
     interface => {
