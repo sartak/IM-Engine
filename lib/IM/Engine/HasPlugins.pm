@@ -121,5 +121,19 @@ sub plugin_default {
     return $default;
 }
 
+sub plugin_collect {
+    my $self = shift;
+    my %args = @_;
+
+    my $method = $args{method};
+    my @items  = @{ $args{items} || [] };
+
+    $self->each_plugin(
+        %args,
+        callback => sub { push @items, shift->$method(\%args) },
+    );
+
+    return @items;
+}
 1;
 
