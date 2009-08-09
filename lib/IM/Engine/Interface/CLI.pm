@@ -14,7 +14,7 @@ sub send_message {
 sub run {
     my $self = shift;
 
-    my $input = join ' ', @ARGV;
+    my $input = shift || join ' ', @ARGV;
 
     my $sender = $self->user_class->new_with_plugins(
         name   => $ENV{USER},
