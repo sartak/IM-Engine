@@ -1,6 +1,8 @@
 IM::Engine changes
 
-0.02
+0.02  2009-08-08
+    Document most of the user-visible classes
+    Use Data::OptList to massage plugin arguments
 
 0.01  2009-07-25
     First version
