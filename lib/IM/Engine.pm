@@ -89,7 +89,7 @@ facilitates switching between these different services.
 
 It is currently alpha quality with serious features missing and is rife with
 horrible bugs. I'm releasing it under the "release early, release often"
-doctrine. Backwards compatibility may be broken in any subsequent release.
+doctrine. Backwards compatibility may be broken in subsequent releases.
 
 =head1 PROTOCOLS
 
