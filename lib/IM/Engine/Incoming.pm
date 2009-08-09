@@ -53,7 +53,7 @@ __END__
 
 =head1 NAME
 
-IM::Engine::Incoming
+IM::Engine::Incoming - a message we have received
 
 =head1 ATTRIBUTES
 

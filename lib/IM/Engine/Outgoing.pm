@@ -27,7 +27,7 @@ __END__
 
 =head1 NAME
 
-IM::Engine::Outgoing
+IM::Engine::Outgoing - a message we're sending to somebody
 
 =head1 ATTRIBUTES
 

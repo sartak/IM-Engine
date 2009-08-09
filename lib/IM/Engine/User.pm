@@ -29,7 +29,7 @@ __END__
 
 =head1 NAME
 
-IM::Engine::User
+IM::Engine::User - a user that we're IMing
 
 =head1 ATTRIBUTES
 

@@ -33,7 +33,7 @@ __END__
 
 =head1 NAME
 
-IM::Engine::Message
+IM::Engine::Message - an instant message, IRC line, etc.
 
 =head1 SYNOPSIS
 
