@@ -16,8 +16,13 @@ sub run {
 
     my $input = join ' ', @ARGV;
 
+    my $sender = $self->user_class->new_with_plugins(
+        name   => $ENV{USER},
+        engine => $self->engine,
+    );
+
     my $incoming = $self->incoming_class->new(
-        sender  => $self->user_class->new(name => $ENV{USER}),
+        sender  => $sender,
         message => $input,
     );
 

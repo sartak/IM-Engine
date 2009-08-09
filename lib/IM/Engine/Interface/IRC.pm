@@ -36,8 +36,13 @@ sub said {
     my $self = shift;
     my $msg  = shift;
 
+    my $sender = $self->user_class->new_with_plugins(
+        name   => $msg->{who},
+        engine => $self->engine,
+    );
+
     my $incoming = $self->incoming_class->new(
-        sender      => $self->user_class->new(name => $msg->{who}),
+        sender      => $sender,
         message     => $msg->{body},
         irc_message => $msg,
     );

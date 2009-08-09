@@ -45,8 +45,13 @@ sub _build_xmpp {
 
             return if !defined($msg->body);
 
+            my $sender = $weakself->user_class->new_with_plugins(
+                name   => $msg->from,
+                engine => $weakself->engine,
+            );
+
             my $incoming = $weakself->incoming_class->new(
-                sender       => $weakself->user_class->new(name => $msg->from),
+                sender       => $sender,
                 xmpp_message => $msg,
                 message      => $msg->body,
             );
