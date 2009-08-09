@@ -3,7 +3,6 @@ use MooseX::Role::Parameterized;
 with 'MooseX::Traits';
 
 parameter does_role => (
-    isa      => 'RoleName',
     does     => 'IM::Engine::ExtendsObject',
     required => 1,
 );
