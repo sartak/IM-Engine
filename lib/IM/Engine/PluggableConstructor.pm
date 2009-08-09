@@ -2,8 +2,8 @@ package IM::Engine::PluggableConstructor;
 use MooseX::Role::Parameterized;
 with 'MooseX::Traits';
 
-parameter does_role => (
-    does     => 'IM::Engine::ExtendsObject',
+parameter role_specifier => (
+    does     => 'Str',
     required => 1,
 );
 
@@ -19,14 +19,14 @@ role {
 
         %args = (
             $engine->plugin_collect(
-                role   => $p->does_role,
+                role   => $p->role_specifier,
                 method => 'constructor_arguments',
             ),
             %args,
         );
 
         push @{ $args{traits} || [] }, $engine->plugin_collect(
-            role   => $p->does_role,
+            role   => $p->role_specifier,
             method => 'traits',
         );
 

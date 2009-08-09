@@ -4,7 +4,7 @@ use MooseX::StrictConstructor;
 
 use IM::Engine::ExtendsObject::Message;
 with 'IM::Engine::PluggableConstructor' => {
-    does_role => 'IM::Engine::ExtendsObject::Message',
+    role_specifier => '+IM::Engine::ExtendsObject::Message',
 };
 
 has '+_trait_namespace' => (default => __PACKAGE__);

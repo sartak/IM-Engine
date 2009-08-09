@@ -4,7 +4,7 @@ use MooseX::StrictConstructor;
 
 use IM::Engine::ExtendsObject::User;
 with 'IM::Engine::PluggableConstructor' => {
-    does_role => 'IM::Engine::ExtendsObject::User',
+    role_specifier => '+IM::Engine::ExtendsObject::User',
 };
 
 has '+_trait_namespace' => (default => __PACKAGE__);
