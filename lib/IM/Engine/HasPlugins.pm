@@ -138,5 +138,68 @@ sub plugin_collect {
 
     return @items;
 }
+
 1;
+
+__END__
+
+=head1 NAME
+
+IM::Engine::HasPlugins - role for objects that have plugins
+
+=head1 DESCRIPTION
+
+This should probably only be applied to L<IM::Engine> objects. Beware!
+
+=head1 ATTRIBUTES
+
+=head2 plugins
+
+=head1 METHODS
+
+=head2 find_plugins
+
+Return the L<IM::Engine::Plugin> objects that return true for the passed
+coderef.
+
+=head2 plugins_with
+
+Return the L<IM::Engine::Plugin> objects that do the particular role. For
+convenience, the role specifier has C<IM::Engine::Plugin::> prepended to it,
+unless it is prefixed with C<+>.
+
+=head2 each_plugin
+
+For each plugin that does the C<role> argument, invoke the C<callback>
+argument. Returns nothing.
+
+=head2 plugin_relay
+
+For each plugin that does the C<role> argument, call the C<method> on it,
+passing the C<baton> argument to it. The return value of C<method> is used as
+the baton for the next plugin. The return value of this method is the final
+state of the baton.
+
+This is useful for letting each plugin get a chance at modifying some value or
+object.
+
+=head2 plugin_default
+
+For each plugin that does the C<role> argument, call the C<method> on it. The
+first return value of C<method> that is defined will be returned from this
+method.
+
+This is useful for (among other things) letting each plugin get a chance at
+short-circuiting some other calculation.
+
+=head2 plugin_collect
+
+For each plugin that does the C<role> argument, call the C<method> on it. The
+return values of all C<method> calls are collected into a list to be returned
+by this method.
+
+This is useful for (among other things) letting each plugin contribute to
+constructor arguments.
+
+=cut
 
