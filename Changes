@@ -10,6 +10,7 @@ IM::Engine changes
     guessing-game example of Dispatcher and State
     post_initialization method for plugins
     RequiresPlugins role for plugins that require other plugins
+    More documentation
 
 0.02  2009-08-08
     Document most of the user-visible classes
