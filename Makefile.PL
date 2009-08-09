@@ -8,6 +8,7 @@ requires 'Moose';
 requires 'MooseX::AttributeHelpers';
 requires 'MooseX::Traits';
 requires 'MooseX::StrictConstructor';
+requires 'MooseX::Role::Parameterized';
 
 requires 'Scalar::Util';
 requires 'Data::OptList';
