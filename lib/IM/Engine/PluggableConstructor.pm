@@ -12,16 +12,20 @@ role {
 
     method new_with_plugins => sub {
         my $class = shift;
+        my %args  = @_;
 
-        my %args = (
-            $class->plugin_collect(
+        my $engine = $args{engine}
+            or confess "You must pass the engine to new_with_plugins";
+
+        %args = (
+            $engine->plugin_collect(
                 role   => $p->does_role,
                 method => 'constructor_arguments',
             ),
-            @_,
+            %args,
         );
 
-        push @{ $args{traits} || [] }, $class->plugin_collect(
+        push @{ $args{traits} || [] }, $engine->plugin_collect(
             role   => $p->does_role,
             method => 'traits',
         );
