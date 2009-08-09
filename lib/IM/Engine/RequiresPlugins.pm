@@ -3,7 +3,7 @@ use MooseX::Role::Parameterized;
 
 parameter plugins => (
     is       => 'ro',
-    isa      => 'ArrayRef[ClassName]|ClassName',
+    isa      => 'ArrayRef|Str',
     required => 1,
 );
 
