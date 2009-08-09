@@ -12,7 +12,7 @@ role {
 
     method new_with_plugins => sub {
         my $class = shift;
-        my %args  = @_;
+        my %args  = %{ $class->BUILDARGS(@_) };
 
         my $engine = delete $args{engine}
             or confess "You must pass the engine to new_with_plugins";
