@@ -1,5 +1,7 @@
 IM::Engine changes
 
+0.05
+
 0.04  2009-08-10
     HTML::TreeBuilder is required for HTML tests
 
