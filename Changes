@@ -1,6 +1,7 @@
 IM::Engine changes
 
-0.04
+0.04  2009-08-10
+    HTML::TreeBuilder is required for HTML tests
 
 0.03  2009-08-09
     each_plugin's API has changed to be callback based
