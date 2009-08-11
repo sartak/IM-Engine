@@ -1,6 +1,11 @@
 #!/usr/bin/env perl
 use lib 't/lib';
-use Test::IM::Engine tests => 12;
+use Test::IM::Engine;
+BEGIN {
+    eval "use HTML::TreeBuilder";
+    plan skip_all => "HTML::TreeBuilder is required for this test" if $@;
+    plan tests => 12;
+}
 
 my @message;
 my @plaintext;
