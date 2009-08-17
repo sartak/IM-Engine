@@ -200,6 +200,8 @@ Provides state management methods on L<IM::Engine::User>s
 Allows multiple commands to be run in one IM (builds on
 L<IM::Engine::Plugin::Dispatcher>)
 
+=back
+
 =head1 COPYRIGHT AND LICENSE
 
 Copyright 2009 Shawn M Moore.
