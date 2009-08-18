@@ -5,6 +5,7 @@ use MooseX::StrictConstructor;
 use Scalar::Util 'weaken';
 
 use AnyEvent;
+use AnyEvent::IRC 'prefix_nick';
 use AnyEvent::IRC::Client;
 
 extends 'IM::Engine::Interface';
@@ -37,7 +38,7 @@ sub _build_irc {
         my $channel = shift;
         my $ircmsg  = shift;
 
-        my $nick = $ircmsg->{prefix} =~ /^([^!]+?)/;
+        my $nick = prefix_nick($ircmsg->{prefix});
         my $text = $ircmsg->{params}[1];
 
         my $sender = $weakself->user_class->new_with_plugins(
@@ -62,7 +63,7 @@ sub _build_irc {
 
         return if $recipient eq 'AUTH';
 
-        my $nick = $ircmsg->{prefix} =~ /^([^!]+?)/;
+        my $nick = prefix_nick($ircmsg->{prefix});
         my $text = $ircmsg->{params}[1];
 
         my $sender = $weakself->user_class->new_with_plugins(
