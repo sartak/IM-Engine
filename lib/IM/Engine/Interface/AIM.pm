@@ -66,6 +66,7 @@ sub send_message {
     $self->_wait_until_signed_on unless $self->signed_on;
 
     $self->oscar->send_im($outgoing->recipient->name, $outgoing->message);
+    $self->oscar->do_one_loop; # make sure we send the message
 }
 
 sub run {
