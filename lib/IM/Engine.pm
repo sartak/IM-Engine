@@ -129,7 +129,7 @@ Talks XMPP using L<AnyEvent::XMPP>:
 
 =head2 L<IRC|IM::Engine::Interface::IRC>
 
-Talks IRC using L<Bot::BasicBot> (though should switch to L<AnyEvent::IRC>):
+Talks IRC using L<AnyEvent::IRC>:
 
     IM::Engine->new(
         interface => {

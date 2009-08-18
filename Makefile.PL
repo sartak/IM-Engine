@@ -25,7 +25,7 @@ features(
     ],
     'IRC interface' => [
         -default => 0,
-        recommends('Bot::BasicBot'),
+        recommends('AnyEvent::IRC'),
     ],
 );
 
