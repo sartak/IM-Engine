@@ -17,6 +17,13 @@ has oscar => (
     builder => '_build_oscar',
 );
 
+has signed_on => (
+    is      => 'ro',
+    writer  => '_set_signed_on',
+    isa     => 'Bool',
+    default => 0,
+);
+
 sub _build_oscar {
     my $self = shift;
 
@@ -40,6 +47,11 @@ sub _build_oscar {
 
         $weakself->received_message($incoming);
     });
+
+    $oscar->set_callback_signon_done(sub {
+        $weakself->_set_signed_on(1);
+    });
+
     weaken($weakself);
 
     $oscar->signon($self->credentials);
