@@ -63,6 +63,8 @@ sub send_message {
     my $self     = shift;
     my $outgoing = shift;
 
+    $self->_wait_until_signed_on unless $self->signed_on;
+
     $self->oscar->send_im($outgoing->recipient->name, $outgoing->message);
 }
 
