@@ -1,0 +1,25 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+use IM::Engine;
+use Getopt::Whatever;
+
+my $protocol  = delete $ARGV{protocol};
+my $recipient = (delete $ARGV{recipient}) || $ENV{USER};
+
+my $engine = IM::Engine->new(
+    interface => {
+        protocol    => $protocol,
+        credentials => \%ARGV,
+    },
+);
+
+$engine->send_message(
+    IM::Engine::Outgoing->new(
+        recipient => IM::Engine::User->new(
+            name => $recipient,
+        ),
+        message => "@ARGV",
+    ),
+);
+
