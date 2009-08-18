@@ -5,7 +5,7 @@ use MooseX::StrictConstructor;
 
 use IM::Engine::Interface;
 
-our $VERSION = '0.05';
+our $VERSION = '0.06';
 
 with 'IM::Engine::HasPlugins';
 

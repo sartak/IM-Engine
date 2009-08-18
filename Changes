@@ -1,5 +1,8 @@
 IM::Engine changes
 
+0.06  2009-08-18
+    Distribution fixes
+
 0.05  2009-08-18
     Switch to AnyEvent::IRC for the IRC protocol (Sartak)
     $engine->send_message(IM::Engine::Outgoing) is now part of the API (Sartak)
