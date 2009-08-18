@@ -113,7 +113,7 @@ sub send_message {
         $self->irc->send_chan($channel, 'PRIVMSG', $channel, $outgoing->message);
     }
     else {
-        $self->irc->send_msg('PRIVMSG', $outgoing->recipient, $outgoing->message);
+        $self->irc->send_msg('PRIVMSG', $outgoing->recipient->name, $outgoing->message);
     }
 }
 
