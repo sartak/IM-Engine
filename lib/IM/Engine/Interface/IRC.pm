@@ -14,10 +14,8 @@ use constant incoming_class => 'IM::Engine::Incoming::IRC';
 
 has irc => (
     is         => 'ro',
+    isa        => 'AnyEvent::IRC::Client',
     lazy_build => 1,
-
-    # The type of AnyEvent::IRC::Client
-    #isa        => 'AnyEvent::IRC::Client',
 );
 
 sub _build_irc {
@@ -66,6 +64,8 @@ sub _build_irc {
             password => $self->credential('server_password'),
         },
     );
+
+    return $irc;
 }
 
 sub _channels {
