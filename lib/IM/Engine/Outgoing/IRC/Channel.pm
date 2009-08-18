@@ -10,6 +10,10 @@ has channel => (
     predicate => 'has_channel',
 );
 
+has '+recipient' => (
+    required => 0,
+);
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
