@@ -7,9 +7,9 @@ extends 'IM::Engine::Incoming';
 use IM::Engine::Outgoing::IRC;
 use constant _reply_class => 'IM::Engine::Outgoing::IRC';
 
-has irc_message => (
+has channel => (
     is       => 'ro',
-    isa      => 'HashRef',
+    isa      => 'Str',
     required => 1,
 );
 
@@ -17,7 +17,7 @@ augment _contextual_reply_arguments => sub {
     my $self = shift;
 
     return (
-        irc_message => $self->irc_message,
+        channel => $self->channel,
         inner,
     );
 };

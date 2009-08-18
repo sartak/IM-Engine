@@ -4,65 +4,84 @@ use MooseX::StrictConstructor;
 
 use Scalar::Util 'weaken';
 
-use IM::Engine::Interface::IRC::Bot;
+use AnyEvent;
+use AnyEvent::IRC::Client;
 
 extends 'IM::Engine::Interface';
 
 use IM::Engine::Incoming::IRC;
 use constant incoming_class => 'IM::Engine::Incoming::IRC';
 
-has bot => (
+has irc => (
     is         => 'ro',
-    isa        => 'IM::Engine::Interface::IRC::Bot',
     lazy_build => 1,
-    handles    => ['run'],
+
+    # The type of AnyEvent::IRC::Client
+    #isa        => 'AnyEvent::IRC::Client',
 );
 
-sub _build_bot {
+sub _build_irc {
     my $self = shift;
+    my $irc = AnyEvent::IRC::Client->new;
+
     my $weakself = $self;
 
-    my $bot = IM::Engine::Interface::IRC::Bot->new(
-        im_interface => $weakself,
-        $self->credentials,
-    );
+    $irc->reg_cb(registered => sub {
+        my $irc = shift;
+        $irc->send_srv('JOIN', $_) for $weakself->_channels;
+    });
+
+    $irc->reg_cb(publicmsg => sub {
+        my $irc     = shift;
+        my $channel = shift;
+        my $ircmsg  = shift;
+
+        my $nick = $ircmsg->{prefix} =~ /^([^!]+?)/;
+        my $text = $ircmsg->{params}[1];
+
+        my $sender = $weakself->user_class->new_with_plugins(
+            name   => $nick,
+            engine => $weakself->engine,
+        );
+
+        my $incoming = $weakself->incoming_class->new_with_plugins(
+            sender  => $sender,
+            channel => $channel,
+            message => $text,
+            engine  => $weakself->engine,
+        );
+
+        $weakself->received_message($incoming);
+    });
 
     weaken($weakself);
 
-    return $bot;
+    $irc->connect(
+        $self->credential('server'),
+        $self->credential('port'),
+        {
+            nick     => $self->credential('nick'),
+            user     => $self->credential('username'),
+            real     => $self->credential('realname'),
+            password => $self->credential('server_password'),
+        },
+    );
 }
 
-sub said {
+sub _channels {
     my $self = shift;
-    my $msg  = shift;
 
-    my $sender = $self->user_class->new_with_plugins(
-        name   => $msg->{who},
-        engine => $self->engine,
-    );
-
-    my $incoming = $self->incoming_class->new_with_plugins(
-        sender      => $sender,
-        message     => $msg->{body},
-        irc_message => $msg,
-        engine      => $self->engine,
-    );
-    $self->received_message($incoming);
+    return grep { defined }
+           $self->credential('channel'),
+           @{ $self->credential('channels') || [] };
 }
 
-sub send_message {
-    my $self     = shift;
-    my $outgoing = shift;
+sub run {
+   my $self = shift;
 
-    if ($outgoing->isa('IM::Engine::Outgoing::IRC') && $outgoing->has_irc_message) {
-        $self->bot->say(
-            %{ $outgoing->irc_message },
-            body => $outgoing->message,
-        );
-    }
-    else {
-        die "Your outgoing message must be a subclass of IM::Engine::Outgoing::IRC";
-    }
+   my $j = AnyEvent->condvar;
+   $self->irc; # force load
+   $j->wait;
 }
 
 __PACKAGE__->meta->make_immutable;

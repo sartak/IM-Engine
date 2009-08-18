@@ -4,10 +4,10 @@ use MooseX::StrictConstructor;
 
 extends 'IM::Engine::Outgoing';
 
-has irc_message => (
+has channel => (
     is        => 'ro',
-    isa       => 'HashRef',
-    predicate => 'has_irc_message',
+    isa       => 'Str',
+    predicate => 'has_channel',
 );
 
 __PACKAGE__->meta->make_immutable;
