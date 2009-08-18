@@ -9,7 +9,7 @@ use AnyEvent::IRC::Client;
 
 extends 'IM::Engine::Interface';
 
-use IM::Engine::Incoming::IRC;
+use IM::Engine::Incoming::IRC::Channel;
 use constant incoming_channel_class => 'IM::Engine::Incoming::IRC::Channel';
 
 has irc => (

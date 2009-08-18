@@ -4,7 +4,7 @@ use MooseX::StrictConstructor;
 
 extends 'IM::Engine::Incoming';
 
-use IM::Engine::Outgoing::IRC;
+use IM::Engine::Outgoing::IRC::Channel;
 use constant _reply_class => 'IM::Engine::Outgoing::IRC::Channel';
 
 has channel => (
