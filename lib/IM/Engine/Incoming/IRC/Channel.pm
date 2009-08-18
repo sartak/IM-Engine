@@ -1,11 +1,11 @@
-package IM::Engine::Incoming::IRC;
+package IM::Engine::Incoming::IRC::Channel;
 use Moose;
 use MooseX::StrictConstructor;
 
 extends 'IM::Engine::Incoming';
 
 use IM::Engine::Outgoing::IRC;
-use constant _reply_class => 'IM::Engine::Outgoing::IRC';
+use constant _reply_class => 'IM::Engine::Outgoing::IRC::Channel';
 
 has channel => (
     is       => 'ro',

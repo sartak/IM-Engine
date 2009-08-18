@@ -10,7 +10,7 @@ use AnyEvent::IRC::Client;
 extends 'IM::Engine::Interface';
 
 use IM::Engine::Incoming::IRC;
-use constant incoming_class => 'IM::Engine::Incoming::IRC';
+use constant incoming_channel_class => 'IM::Engine::Incoming::IRC::Channel';
 
 has irc => (
     is         => 'ro',
@@ -42,7 +42,7 @@ sub _build_irc {
             engine => $weakself->engine,
         );
 
-        my $incoming = $weakself->incoming_class->new_with_plugins(
+        my $incoming = $weakself->incoming_channel_class->new_with_plugins(
             sender  => $sender,
             channel => $channel,
             message => $text,
@@ -80,7 +80,7 @@ sub send_message {
     my $self     = shift;
     my $outgoing = shift;
 
-    if ($outgoing->isa('IM::Engine::Outgoing::IRC') && $outgoing->has_channel) {
+    if ($outgoing->isa('IM::Engine::Outgoing::IRC::Channel')) {
         my $channel = $outgoing->channel;
         $self->irc->send_chan($channel, 'PRIVMSG', $channel, $outgoing->message);
     }
