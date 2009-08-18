@@ -1,4 +1,4 @@
-package IM::Engine::Outgoing::IRC;
+package IM::Engine::Outgoing::IRC::Channel;
 use Moose;
 use MooseX::StrictConstructor;
 
