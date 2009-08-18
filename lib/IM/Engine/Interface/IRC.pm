@@ -76,6 +76,19 @@ sub _channels {
            @{ $self->credential('channels') || [] };
 }
 
+sub send_message {
+    my $self     = shift;
+    my $outgoing = shift;
+
+    if ($outgoing->isa('IM::Engine::Outgoing::IRC') && $outgoing->has_channel) {
+        my $channel = $outgoing->channel;
+        $self->irc->send_chan($channel, 'PRIVMSG', $channel, $outgoing->message);
+    }
+    else {
+        $self->irc->send_msg('PRIVMSG', $outgoing->recipient, $outgoing->message);
+    }
+}
+
 sub run {
    my $self = shift;
 
