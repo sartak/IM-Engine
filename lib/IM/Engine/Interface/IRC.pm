@@ -12,6 +12,9 @@ extends 'IM::Engine::Interface';
 use IM::Engine::Incoming::IRC::Channel;
 use constant incoming_channel_class => 'IM::Engine::Incoming::IRC::Channel';
 
+use IM::Engine::Incoming::IRC::Privmsg;
+use constant incoming_privmsg_class => 'IM::Engine::Incoming::IRC::Privmsg';
+
 has irc => (
     is         => 'ro',
     isa        => 'AnyEvent::IRC::Client',
@@ -45,6 +48,30 @@ sub _build_irc {
         my $incoming = $weakself->incoming_channel_class->new_with_plugins(
             sender  => $sender,
             channel => $channel,
+            message => $text,
+            engine  => $weakself->engine,
+        );
+
+        $weakself->received_message($incoming);
+    });
+
+    $irc->reg_cb(privatemsg => sub {
+        my $irc       = shift;
+        my $recipient = shift;
+        my $ircmsg    = shift;
+
+        return if $recipient eq 'AUTH';
+
+        my $nick = $ircmsg->{prefix} =~ /^([^!]+?)/;
+        my $text = $ircmsg->{params}[1];
+
+        my $sender = $weakself->user_class->new_with_plugins(
+            name   => $nick,
+            engine => $weakself->engine,
+        );
+
+        my $incoming = $weakself->incoming_privmsg_class->new_with_plugins(
+            sender  => $sender,
             message => $text,
             engine  => $weakself->engine,
         );
