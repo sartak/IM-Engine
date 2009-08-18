@@ -24,10 +24,10 @@ sub _build_oscar {
 
     my $weakself = $self;
     $oscar->set_callback_im_in(sub {
-        my (undef, $sender, $message, $is_away) = @_;
+        my (undef, $screenname, $message, $is_away) = @_;
 
         my $sender = $weakself->user_class->new_with_plugins(
-            name   => $sender->stringify,
+            name   => $screenname->stringify,
             engine => $weakself->engine,
         );
 
