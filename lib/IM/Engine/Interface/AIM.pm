@@ -73,6 +73,15 @@ sub run {
     }
 }
 
+sub _wait_until_signed_on {
+    my $self = shift;
+
+    while (1) {
+        $self->oscar->do_one_loop;
+        last if $self->signed_on;
+    }
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
