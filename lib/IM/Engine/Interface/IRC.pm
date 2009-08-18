@@ -5,8 +5,8 @@ use MooseX::StrictConstructor;
 use Scalar::Util 'weaken';
 
 use AnyEvent;
-use AnyEvent::IRC 'prefix_nick';
 use AnyEvent::IRC::Client;
+use AnyEvent::IRC::Util 'prefix_nick';
 
 extends 'IM::Engine::Interface';
 
