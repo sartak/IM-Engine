@@ -22,6 +22,22 @@ has irc => (
     lazy_build => 1,
 );
 
+sub _connect {
+    my $self = shift;
+    my $irc  = shift;
+
+    $irc->connect(
+        $self->credential('server'),
+        $self->credential('port'),
+        {
+            nick     => $self->credential('nick'),
+            user     => $self->credential('username'),
+            real     => $self->credential('realname'),
+            password => $self->credential('server_password'),
+        },
+    );
+}
+
 sub _build_irc {
     my $self = shift;
     my $irc = AnyEvent::IRC::Client->new;
@@ -32,6 +48,12 @@ sub _build_irc {
         my $irc = shift;
         $irc->send_srv('JOIN', $_) for $weakself->_channels;
     });
+
+    $irc->reg_cb(disconnect => sub {
+        my $irc = shift;
+        $weakself->_connect($irc);
+    });
+
 
     $irc->reg_cb(publicmsg => sub {
         my $irc     = shift;
@@ -82,16 +104,7 @@ sub _build_irc {
 
     weaken($weakself);
 
-    $irc->connect(
-        $self->credential('server'),
-        $self->credential('port'),
-        {
-            nick     => $self->credential('nick'),
-            user     => $self->credential('username'),
-            real     => $self->credential('realname'),
-            password => $self->credential('server_password'),
-        },
-    );
+    $self->_connect($irc);
 
     return $irc;
 }
