@@ -2,7 +2,7 @@ package IM::Engine::Outgoing::IRC::Channel;
 use Moose;
 use MooseX::StrictConstructor;
 
-extends 'IM::Engine::Outgoing';
+extends 'IM::Engine::Outgoing::IRC';
 
 has channel => (
     is        => 'ro',
