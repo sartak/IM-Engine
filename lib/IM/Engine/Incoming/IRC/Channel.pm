@@ -2,7 +2,7 @@ package IM::Engine::Incoming::IRC::Channel;
 use Moose;
 use MooseX::StrictConstructor;
 
-extends 'IM::Engine::Incoming';
+extends 'IM::Engine::Incoming::IRC';
 
 use IM::Engine::Outgoing::IRC::Channel;
 use constant _reply_class => 'IM::Engine::Outgoing::IRC::Channel';

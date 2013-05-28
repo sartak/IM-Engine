@@ -73,6 +73,7 @@ sub _build_irc {
             channel => $channel,
             message => $text,
             engine  => $weakself->engine,
+            command => $ircmsg->{command},
         );
 
         $weakself->received_message($incoming);
@@ -97,6 +98,7 @@ sub _build_irc {
             sender  => $sender,
             message => $text,
             engine  => $weakself->engine,
+            command => $ircmsg->{command},
         );
 
         $weakself->received_message($incoming);
@@ -123,10 +125,10 @@ sub send_message {
 
     if ($outgoing->isa('IM::Engine::Outgoing::IRC::Channel')) {
         my $channel = $outgoing->channel;
-        $self->irc->send_chan($channel, 'PRIVMSG', $channel, $outgoing->message);
+        $self->irc->send_chan($channel, $outgoing->command, $channel, $outgoing->message);
     }
     else {
-        $self->irc->send_msg('PRIVMSG', $outgoing->recipient->name, $outgoing->message);
+        $self->irc->send_msg($outgoing->command, $outgoing->recipient->name, $outgoing->message);
     }
 }
 
